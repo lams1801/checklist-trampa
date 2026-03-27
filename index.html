@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trampa">
+<meta name="theme-color" content="#0d1117">
+<title>Checklist — Sistema Trampa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:#0d1117;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  color:#c0c8d8;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:20px 16px 14px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:relative;
+  background:#0d1117;
+  position:sticky;top:0;z-index:100;
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);
+  border-radius:20px;padding:3px 14px;
+  font-size:9px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:500;margin-bottom:6px;
+}
+.hero-title{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#f0ead6;letter-spacing:1px;margin-bottom:2px;}
+.hero-sub{font-size:9px;color:#4a5a6a;letter-spacing:1px;}
+
+/* PROGRESS */
+.progress-bar{
+  height:3px;background:#1a2030;
+  position:sticky;top:0;z-index:99;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,#4caf50,#c9a84c);
+  width:0%;transition:width 0.3s ease;
+}
+
+/* CONTENT */
+.content{padding:0 10px;max-width:700px;margin:0 auto;}
+
+/* COL HEADERS */
+.col-headers{display:grid;grid-template-columns:1fr 20px 1fr;padding:10px 0 0;}
+.col-h{padding:7px 8px;border-radius:8px 8px 0 0;text-align:center;}
+.col-h-green{background:rgba(76,175,80,0.12);border:1px solid rgba(76,175,80,0.25);border-bottom:none;}
+.col-h-red{background:rgba(239,83,80,0.12);border:1px solid rgba(239,83,80,0.25);border-bottom:none;}
+.col-h-title{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:1px;}
+.col-h-green .col-h-title{color:#4caf50;}
+.col-h-red .col-h-title{color:#ef5350;}
+.col-h-sub{font-size:8px;font-weight:300;margin-top:1px;}
+.col-h-green .col-h-sub{color:#3a7a3e;}
+.col-h-red .col-h-sub{color:#7a3535;}
+
+/* ROWS */
+.rows{}
+.row-group{margin-bottom:1px;}
+.row-label{
+  background:#111820;
+  border-left:1px solid rgba(255,255,255,0.05);
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding:4px 8px;
+  font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:#3a4a5a;text-align:center;
+}
+.row{display:grid;grid-template-columns:1fr 20px 1fr;}
+
+.cell{
+  padding:9px 8px;
+  border:1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;gap:8px;
+  min-height:46px;cursor:pointer;
+  transition:background 0.15s;
+  user-select:none;
+}
+.cell:active{opacity:0.8;}
+
+.cell-green{background:rgba(76,175,80,0.04);border-color:rgba(76,175,80,0.15);}
+.cell-green.tapped{background:rgba(76,175,80,0.12);}
+.cell-red{background:rgba(239,83,80,0.04);border-color:rgba(239,83,80,0.15);}
+.cell-red.tapped{background:rgba(239,83,80,0.1);}
+.cell-mid{background:#0d1117;border-color:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;cursor:default;}
+.cell-stop{background:rgba(239,83,80,0.06);border:1px solid rgba(239,83,80,0.18);cursor:default;}
+.cell-wait{background:rgba(245,166,35,0.05);border:1px solid rgba(245,166,35,0.15);cursor:default;}
+
+/* CHECKBOX */
+.cb{
+  width:20px;height:20px;border-radius:5px;flex-shrink:0;
+  border:1.5px solid;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;font-size:12px;font-weight:700;
+}
+.cb-green{border-color:rgba(76,175,80,0.5);color:transparent;}
+.cell-green.tapped .cb-green{background:#4caf50;border-color:#4caf50;color:#fff;}
+.cb-red{border-color:rgba(239,83,80,0.5);color:transparent;}
+.cell-red.tapped .cb-red{background:#ef5350;border-color:#ef5350;color:#fff;}
+
+.cell-text{font-size:11px;font-weight:300;line-height:1.4;flex:1;}
+.cell-green .cell-text{color:#8ab8a0;}
+.cell-red .cell-text{color:#b88a8a;}
+.cell-green.tapped .cell-text{color:#aad8c0;}
+.cell-red.tapped .cell-text{color:#d8aaaa;}
+.cell-stop .cell-text{color:#cc5555;font-weight:400;font-size:10px;}
+.cell-wait .cell-text{color:#cc9933;font-weight:400;font-size:10px;}
+
+.mid-dot{width:5px;height:5px;border-radius:50%;background:#1e2530;}
+
+.badge{
+  display:inline-flex;align-items:center;
+  border-radius:4px;padding:2px 5px;
+  font-size:8px;font-weight:500;letter-spacing:1px;
+  flex-shrink:0;white-space:nowrap;
+}
+.badge-stop{background:rgba(239,83,80,0.15);border:1px solid rgba(239,83,80,0.3);color:#ef5350;}
+.badge-wait{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.3);color:#f5a623;}
+
+/* EXEC */
+.exec-block{
+  background:rgba(76,175,80,0.06);
+  border:1px solid rgba(76,175,80,0.2);
+  border-radius:0 0 8px 8px;
+  padding:10px;margin-bottom:1px;
+}
+.exec-title{font-family:'Cinzel',serif;font-size:9px;font-weight:600;color:#4caf50;letter-spacing:1px;margin-bottom:8px;}
+.exec-items{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.exec-item{background:#0d1117;border:1px solid rgba(76,175,80,0.15);border-radius:6px;padding:7px 8px;}
+.exec-item-label{font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#3a6a3e;margin-bottom:3px;}
+.exec-item-val{font-size:10px;color:#7acc80;font-weight:300;line-height:1.4;}
+
+/* BOTTOM BAR */
+.bottom-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#0d1117;border-top:1px solid rgba(255,255,255,0.08);
+  padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;z-index:200;
+}
+.progress-text{font-size:10px;color:#4a5a6a;white-space:nowrap;}
+.progress-text span{color:#c9a84c;font-weight:500;}
+
+.btn-reset{
+  background:rgba(239,83,80,0.1);
+  border:1px solid rgba(239,83,80,0.3);
+  border-radius:8px;padding:8px 18px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+  color:#ef5350;cursor:pointer;letter-spacing:0.5px;
+  transition:all 0.15s;
+}
+.btn-reset:active{background:rgba(239,83,80,0.2);}
+
+.status-pill{
+  padding:6px 14px;border-radius:8px;
+  font-size:10px;font-weight:500;letter-spacing:0.5px;
+  transition:all 0.3s;
+}
+.status-pending{background:rgba(74,90,106,0.2);border:1px solid rgba(74,90,106,0.3);color:#4a5a6a;}
+.status-go{background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);color:#4caf50;}
+.status-warn{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);color:#f5a623;}
+
+/* FOOTER */
+.footer{
+  margin:10px 0 0;padding:12px;
+  border:1px solid rgba(201,168,76,0.1);border-radius:8px;
+  background:rgba(201,168,76,0.02);text-align:center;
+}
+.footer-text{font-size:9px;color:#7a6a4a;line-height:1.7;font-style:italic;}
+.footer-text strong{color:#c9a84c;font-style:normal;}
+
+/* TABLET */
+@media(min-width:600px){
+  .content{padding:0 20px;}
+  .cell{padding:11px 12px;min-height:52px;}
+  .cell-text{font-size:12px;}
+  .cb{width:22px;height:22px;}
+  .hero-title{font-size:18px;}
+  .exec-item-val{font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">✦ Checklist Operativo ✦</div>
+  <div class="hero-title">SEÑAL RECIBIDA — FILTRO MENTAL</div>
+  <div class="hero-sub">Marca cada casilla · D1 contexto · H4 ejecución</div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="content">
+
+  <!-- COL HEADERS -->
+  <div class="col-headers">
+    <div class="col-h col-h-green">
+      <div class="col-h-title">ALCISTA</div>
+      <div class="col-h-sub">señal larga</div>
+    </div>
+    <div></div>
+    <div class="col-h col-h-red">
+      <div class="col-h-title">BAJISTA</div>
+      <div class="col-h-sub">señal corta</div>
+    </div>
+  </div>
+
+  <div class="rows">
+
+    <!-- 1. SEÑAL -->
+    <div class="row-group">
+      <div class="row-label">1 — señal escáner (telegram)</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Señal <strong style="color:#6fcf75">alcista</strong> recibida</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Señal <strong style="color:#ff7777">bajista</strong> recibida</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. D1 ZONAS -->
+    <div class="row-group">
+      <div class="row-label">2 — diario · dibujar zonas D1</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. D1 SESGO -->
+    <div class="row-group">
+      <div class="row-label">3 — diario · sesgo D1</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Precio en/desde <strong style="color:#6fcf75">soporte D1</strong><br><span style="font-size:9px;color:#3a6a3e">sesgo alcista confirmado</span></div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Precio en/desde <strong style="color:#ff7777">resistencia D1</strong><br><span style="font-size:9px;color:#6a3a3a">sesgo bajista confirmado</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Sesgo contrario — descarta señal</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Sesgo contrario — descarta señal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. D1 POSICIÓN -->
+    <div class="row-group">
+      <div class="row-label">4 — diario · posición del precio</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">En zona D1 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">En zona D1 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-wait">
+          <div class="badge badge-wait">ESPERA</div>
+          <div class="cell-text">A mitad del rango D1</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-wait">
+          <div class="badge badge-wait">ESPERA</div>
+          <div class="cell-text">A mitad del rango D1</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Llegando a zona contraria D1</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Llegando a zona contraria D1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. H4 ZONAS -->
+    <div class="row-group">
+      <div class="row-label">5 — H4 · dibujar zonas H4</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. H4 POSICIÓN -->
+    <div class="row-group">
+      <div class="row-label">6 — H4 · posición del precio</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">En zona H4 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">En zona H4 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-wait">
+          <div class="badge badge-wait">ESPERA</div>
+          <div class="cell-text">A mitad del rango H4</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-wait">
+          <div class="badge badge-wait">ESPERA</div>
+          <div class="cell-text">A mitad del rango H4</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Llegando a zona contraria H4</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Llegando a zona contraria H4</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. TRAMPA -->
+    <div class="row-group">
+      <div class="row-label">7 — H4 · patrón trampa</div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Velas 1+2 forman <strong style="color:#6fcf75">nivel S</strong> en zona</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Velas 1+2 forman <strong style="color:#ff7777">nivel S</strong> en zona</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Vela 3 <strong style="color:#6fcf75">rompe S en falso</strong> — trampa</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Vela 3 <strong style="color:#ff7777">rompe S en falso</strong> — trampa</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-green" onclick="toggle(this)">
+          <div class="cb cb-green">✓</div>
+          <div class="cell-text">Vela 4 cierra <strong style="color:#6fcf75">por encima</strong> de vela 3</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-red" onclick="toggle(this)">
+          <div class="cb cb-red">✓</div>
+          <div class="cell-text">Vela 4 cierra <strong style="color:#ff7777">por debajo</strong> de vela 3</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div>
+        </div>
+        <div class="cell cell-mid"><div class="mid-dot"></div></div>
+        <div class="cell cell-stop">
+          <div class="badge badge-stop">STOP</div>
+          <div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. EJECUCIÓN -->
+    <div class="exec-block">
+      <div class="exec-title">8 — EJECUCIÓN · <span style="font-weight:300;font-family:'DM Sans',sans-serif;letter-spacing:0;color:#3a6a3e;font-size:8px;">todos los pasos anteriores marcados</span></div>
+      <div class="exec-items">
+        <div class="exec-item">
+          <div class="exec-item-label">Entrada</div>
+          <div class="exec-item-val">Mitad del cuerpo vela 4</div>
+        </div>
+        <div class="exec-item">
+          <div class="exec-item-label">Stop Loss</div>
+          <div class="exec-item-val">Bajo mecha vela 3</div>
+        </div>
+        <div class="exec-item">
+          <div class="exec-item-label">Take Profit</div>
+          <div class="exec-item-val">Zona contraria D1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">
+        <strong>La señal ya llegó.</strong> Este checklist decide si es buena, hay que esperar o se descarta.<br>
+        D1 acorrala el precio · H4 confirma la zona · La trampa da la entrada
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="progress-text">Completado: <span id="countText">0/8</span></div>
+  <div class="status-pill status-pending" id="statusPill">En proceso</div>
+  <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
+</div>
+
+<script>
+const TOTAL = 8;
+
+function toggle(el) {
+  el.classList.toggle('tapped');
+  updateProgress();
+}
+
+function updateProgress() {
+  const checked = document.querySelectorAll('.cell.tapped').length;
+  const pct = Math.round((checked / TOTAL) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('countText').textContent = checked + '/' + TOTAL;
+  const pill = document.getElementById('statusPill');
+  if (checked === TOTAL) {
+    pill.className = 'status-pill status-go';
+    pill.textContent = '✓ Ejecutar';
+  } else if (checked >= 4) {
+    pill.className = 'status-pill status-warn';
+    pill.textContent = 'Validando...';
+  } else {
+    pill.className = 'status-pill status-pending';
+    pill.textContent = 'En proceso';
+  }
+}
+
+function resetAll() {
+  document.querySelectorAll('.cell.tapped').forEach(el => el.classList.remove('tapped'));
+  updateProgress();
+}
+</script>
+</body>
+</html>
