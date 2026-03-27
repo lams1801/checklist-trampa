@@ -9,12 +9,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "ABATAR%20UNO.png",
+      "src": "avatar.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "ABATAR%20UNO.png",
+      "src": "avatar.png",
       "sizes": "512x512",
       "type": "image/png"
     }
