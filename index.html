@@ -156,16 +156,23 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .btn-clear-tf:hover{background:rgba(239,83,80,0.15);border-color:rgba(239,83,80,0.5);color:#ef5350;}
 
 /* ===== CHATBOT ===== */
-.bot-bubble{position:fixed;bottom:22px;right:22px;z-index:900;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a2030,#252e42);border:1px solid rgba(201,168,76,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.5),0 0 12px rgba(201,168,76,0.1);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:#c9a84c;font-family:'Cinzel',serif;}
-.bot-bubble:hover{border-color:rgba(201,168,76,0.7);box-shadow:0 4px 24px rgba(0,0,0,0.6),0 0 18px rgba(201,168,76,0.2);transform:scale(1.05);}
-.bot-panel{position:fixed;bottom:86px;right:16px;z-index:900;width:340px;max-width:calc(100vw - 32px);background:#0d1117;border:1px solid rgba(201,168,76,0.2);border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.7);display:flex;flex-direction:column;overflow:hidden;max-height:520px;transform:translateY(16px) scale(0.97);opacity:0;pointer-events:none;transition:all 0.22s cubic-bezier(.4,0,.2,1);}
+@keyframes botIdle{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-3px) scale(1.03);}}
+@keyframes botThink{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.4);}50%{box-shadow:0 0 0 10px rgba(201,168,76,0);}}
+@keyframes botListen{0%,100%{box-shadow:0 0 0 0 rgba(239,83,80,0.5);}50%{box-shadow:0 0 0 12px rgba(239,83,80,0);}}
+.bot-bubble{position:fixed;bottom:22px;right:22px;z-index:900;width:64px;height:64px;border-radius:50%;background:#0d1117;border:2px solid rgba(201,168,76,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.6);cursor:pointer;overflow:hidden;transition:border-color 0.2s;animation:botIdle 3s ease-in-out infinite;}
+.bot-bubble img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.bot-bubble:hover{border-color:rgba(201,168,76,0.8);transform:scale(1.06);}
+.bot-bubble.thinking{animation:botThink 1s ease-in-out infinite;border-color:rgba(201,168,76,0.8);}
+.bot-bubble.listening{animation:botListen 0.8s ease-in-out infinite;border-color:rgba(239,83,80,0.8);}
+.bot-panel{position:fixed;bottom:100px;right:16px;z-index:900;width:340px;max-width:calc(100vw - 32px);background:#0d1117;border:1px solid rgba(201,168,76,0.2);border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.7);display:flex;flex-direction:column;overflow:hidden;max-height:520px;transform:translateY(16px) scale(0.97);opacity:0;pointer-events:none;transition:all 0.22s cubic-bezier(.4,0,.2,1);}
 .bot-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
-.bot-panel-header{display:flex;align-items:center;padding:12px 14px;background:linear-gradient(90deg,rgba(201,168,76,0.07),rgba(201,168,76,0.03));border-bottom:1px solid rgba(201,168,76,0.1);}
+.bot-panel-header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(90deg,rgba(201,168,76,0.07),rgba(201,168,76,0.03));border-bottom:1px solid rgba(201,168,76,0.1);}
+.bot-header-avatar{width:32px;height:32px;border-radius:50%;overflow:hidden;border:1px solid rgba(201,168,76,0.3);flex-shrink:0;}
+.bot-header-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 .bot-panel-title{font-family:'Cinzel',serif;font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:1.5px;flex:1;}
-.bot-panel-subtitle{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;margin-left:6px;margin-top:2px;}
 .btn-bot-settings{padding:4px 8px;border-radius:6px;cursor:pointer;font-size:12px;background:none;border:none;color:#3a4a5a;transition:color 0.15s;}
 .btn-bot-settings:hover{color:#c9a84c;}
-.btn-bot-close{padding:4px 8px;border-radius:6px;cursor:pointer;font-size:13px;background:none;border:none;color:#3a4a5a;transition:color 0.15s;margin-left:4px;}
+.btn-bot-close{padding:4px 8px;border-radius:6px;cursor:pointer;font-size:13px;background:none;border:none;color:#3a4a5a;transition:color 0.15s;margin-left:2px;}
 .btn-bot-close:hover{color:#ef5350;}
 .bot-messages{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;min-height:200px;scrollbar-width:thin;scrollbar-color:#1a2030 transparent;}
 .bot-messages::-webkit-scrollbar{width:4px;}
@@ -175,11 +182,14 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .bot-msg-ai.typing{color:#3a4a5a;font-style:italic;}
 .bot-empty{text-align:center;padding:20px 10px;font-size:11px;color:#2a3a4a;line-height:1.8;}
 .bot-empty strong{display:block;font-size:13px;color:#3a4a5a;margin-bottom:6px;font-family:'Cinzel',serif;letter-spacing:1px;}
-.bot-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,0.05);}
+.bot-input-row{display:flex;gap:6px;padding:10px 12px;border-top:1px solid rgba(255,255,255,0.05);}
 .bot-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;font-size:12px;color:#c0c8d8;outline:none;font-family:'DM Sans',sans-serif;transition:border-color 0.2s;}
 .bot-input:focus{border-color:rgba(201,168,76,0.3);}
 .bot-input::placeholder{color:#2a3a4a;}
-.btn-bot-send{padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.btn-bot-mic{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:15px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#5a6a7a;transition:all 0.15s;}
+.btn-bot-mic:hover{border-color:rgba(239,83,80,0.4);color:#ef5350;}
+.btn-bot-mic.active{background:rgba(239,83,80,0.12);border-color:rgba(239,83,80,0.5);color:#ef5350;animation:botListen 0.8s ease-in-out infinite;}
+.btn-bot-send{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
 .btn-bot-send:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.5);}
 .btn-bot-send:disabled{opacity:0.3;cursor:default;}
 
@@ -605,12 +615,13 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 </div>
 
 <!-- ===== CHATBOT ===== -->
-<button class="bot-bubble" onclick="toggleChat()" title="Trampa IA">✦</button>
+<button class="bot-bubble" id="botBubble" onclick="toggleChat()" title="Trampa IA">
+  <img src="bot-avatar.jpg" alt="Trampa IA">
+</button>
 <div class="bot-panel" id="botPanel">
   <div class="bot-panel-header">
-    <div>
-      <div class="bot-panel-title">TRAMPA · IA</div>
-    </div>
+    <div class="bot-header-avatar"><img src="bot-avatar.jpg" alt="avatar"></div>
+    <div class="bot-panel-title">TRAMPA · IA</div>
     <button class="btn-bot-settings" onclick="openApiKeyPrompt()" title="API Key">⚙</button>
     <button class="btn-bot-close" onclick="toggleChat()">✕</button>
   </div>
@@ -626,6 +637,7 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
   <div class="bot-input-row">
     <input class="bot-input" id="botInput" placeholder="Pregunta sobre tus pares..."
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendBotMsg();}">
+    <button class="btn-bot-mic" id="botMicBtn" onclick="toggleMic()" title="Hablar">🎤</button>
     <button class="btn-bot-send" id="botSendBtn" onclick="sendBotMsg()">➤</button>
   </div>
 </div>
@@ -1314,6 +1326,7 @@ async function sendBotMsg() {
 
   botThinking = true;
   sendBtn.disabled = true;
+  document.getElementById('botBubble').classList.add('thinking');
   const typingEl = appendBotMsg('ai', '...', true);
 
   const systemPrompt =
@@ -1360,6 +1373,7 @@ ${buildBotContext()}`;
 
   botThinking = false;
   sendBtn.disabled = false;
+  document.getElementById('botBubble').classList.remove('thinking');
   scrollBotMessages();
   input.focus();
 }
@@ -1403,6 +1417,58 @@ function openApiKeyPrompt() {
   if (!key) { localStorage.removeItem(BOT_KEY_STORE); return; }
   if (key.startsWith('sk-')) { localStorage.setItem(BOT_KEY_STORE, key.trim()); alert('✓ API key guardada'); }
   else alert('Clave no válida. Debe empezar por sk-');
+}
+
+// =============================================
+//  MICRÓFONO — Web Speech API
+// =============================================
+let micActive = false;
+let recognition = null;
+
+function toggleMic() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Tu navegador no soporta el micrófono. Usa Chrome o Edge.');
+    return;
+  }
+  if (micActive) {
+    recognition && recognition.stop();
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'es-ES';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    micActive = true;
+    document.getElementById('botMicBtn').classList.add('active');
+    document.getElementById('botBubble').classList.add('listening');
+    document.getElementById('botInput').placeholder = '🎤 Escuchando...';
+  };
+
+  recognition.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    document.getElementById('botInput').value = transcript;
+  };
+
+  recognition.onend = () => {
+    micActive = false;
+    document.getElementById('botMicBtn').classList.remove('active');
+    document.getElementById('botBubble').classList.remove('listening');
+    document.getElementById('botInput').placeholder = 'Pregunta sobre tus pares...';
+    // Auto-send if got something
+    if (document.getElementById('botInput').value.trim()) sendBotMsg();
+  };
+
+  recognition.onerror = (e) => {
+    micActive = false;
+    document.getElementById('botMicBtn').classList.remove('active');
+    document.getElementById('botBubble').classList.remove('listening');
+    document.getElementById('botInput').placeholder = 'Pregunta sobre tus pares...';
+  };
+
+  recognition.start();
 }
 
 // =============================================
