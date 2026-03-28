@@ -7,60 +7,276 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Trampa">
 <meta name="theme-color" content="#0d1117">
-<title>Checklist — Sistema Trampa</title>
+<title>Sistema Trampa</title>
 <link rel="apple-touch-icon" href="avatar.png">
-<link rel="apple-touch-icon" sizes="180x180" href="avatar.png">
 <link rel="icon" type="image/png" href="avatar.png">
 <link rel="manifest" href="manifest.json">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap');
-
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:#0d1117;}
+body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 
-body{
-  font-family:'DM Sans',sans-serif;
-  color:#c0c8d8;
-  min-height:100vh;
-  padding-bottom:80px;
-}
+/* ===== TOP NAV ===== */
+.top-nav{position:sticky;top:0;z-index:200;background:#0d1117;border-bottom:1px solid rgba(255,255,255,0.06);}
+.top-nav::before{content:'';display:block;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:10px;}
+.app-logo{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:#f0ead6;letter-spacing:1px;white-space:nowrap;}
+.app-logo em{color:#c9a84c;font-style:normal;}
+.main-tabs{display:flex;gap:4px;flex-shrink:0;}
+.main-tab{padding:6px 14px;border-radius:8px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:1px solid transparent;transition:all 0.2s;color:#4a5a6a;background:none;font-family:'DM Sans',sans-serif;}
+.main-tab.active{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
+.main-tab:hover:not(.active){color:#8a9ab0;}
 
-/* HERO */
-.hero{
-  text-align:center;
-  padding:20px 16px 14px;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  position:relative;
-  background:#0d1117;
-  position:sticky;top:0;z-index:100;
-}
-.hero::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);
-}
-.hero-badge{
-  display:inline-block;
-  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);
-  border-radius:20px;padding:3px 14px;
-  font-size:9px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:500;margin-bottom:6px;
-}
+/* ===== SECTIONS ===== */
+.section{display:none;}
+.section.active{display:block;}
+
+/* ===== PAIRS BAR ===== */
+.pairs-bar{background:#080d12;border-bottom:1px solid rgba(255,255,255,0.05);padding:8px 12px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.pairs-bar::-webkit-scrollbar{display:none;}
+.pair-tab{padding:6px 14px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1.5px;border:1px solid rgba(255,255,255,0.08);color:#4a5a6a;white-space:nowrap;transition:all 0.15s;flex-shrink:0;background:none;font-family:'DM Sans',sans-serif;}
+.pair-tab.active{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
+.pair-tab:hover:not(.active){color:#8a9ab0;border-color:rgba(255,255,255,0.15);}
+.btn-add-pair{padding:5px 11px;border-radius:6px;cursor:pointer;font-size:16px;font-weight:300;border:1px dashed rgba(201,168,76,0.25);color:#5a4a2a;flex-shrink:0;background:transparent;transition:all 0.15s;line-height:1;}
+.btn-add-pair:hover{border-color:rgba(201,168,76,0.5);color:#c9a84c;}
+
+/* ===== EMPTY STATE ===== */
+.empty-state{text-align:center;padding:60px 20px;}
+.empty-icon{font-size:36px;margin-bottom:14px;opacity:0.4;}
+.empty-title{font-family:'Cinzel',serif;font-size:14px;color:#4a5a6a;margin-bottom:8px;letter-spacing:1px;}
+.empty-sub{font-size:11px;color:#3a4a5a;line-height:1.7;}
+.btn-empty{display:inline-block;margin-top:18px;padding:10px 24px;border-radius:8px;cursor:pointer;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#c9a84c;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;}
+
+/* ===== PAIR CONTENT ===== */
+.pair-content-wrap{padding:12px 12px 80px;max-width:900px;margin:0 auto;}
+.pair-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:2px 2px;}
+.pair-title{font-family:'Cinzel',serif;font-size:19px;font-weight:700;color:#f0ead6;letter-spacing:2px;}
+.pair-title small{font-size:8px;color:#3a4a5a;letter-spacing:1px;margin-left:8px;font-family:'DM Sans',sans-serif;font-weight:300;}
+.btn-del{padding:5px 12px;border-radius:6px;cursor:pointer;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:rgba(239,83,80,0.15);border:1px solid rgba(239,83,80,0.4);color:#ef7070;transition:all 0.15s;font-family:'DM Sans',sans-serif;font-weight:500;}
+.btn-del:hover{background:rgba(239,83,80,0.28);color:#ff9090;border-color:rgba(239,83,80,0.7);}
+
+/* ===== TF GRID ===== */
+.tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(min-width:700px){.tf-grid{grid-template-columns:repeat(4,1fr);}}
+
+/* ===== TF BADGE COLORS — catálogo completo ===== */
+.tf-y  {background:rgba(255,210,80,0.12); border:1px solid rgba(255,210,80,0.3); color:#ffd250;}
+.tf-6m {background:rgba(255,150,80,0.1);  border:1px solid rgba(255,150,80,0.25);color:#ff9650;}
+.tf-3m {background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.2);color:#ff6464;}
+.tf-mn {background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.25);color:#c9a84c;}
+.tf-w1 {background:rgba(100,150,210,0.1); border:1px solid rgba(100,150,210,0.2);color:#6090c8;}
+.tf-d1 {background:rgba(76,175,80,0.1);   border:1px solid rgba(76,175,80,0.2);  color:#5cb870;}
+.tf-h12{background:rgba(80,210,190,0.1);  border:1px solid rgba(80,210,190,0.2); color:#50d2be;}
+.tf-h8 {background:rgba(80,200,160,0.1);  border:1px solid rgba(80,200,160,0.2); color:#50c8a0;}
+.tf-h4 {background:rgba(180,100,210,0.1); border:1px solid rgba(180,100,210,0.2);color:#b870d8;}
+.tf-h2 {background:rgba(160,100,220,0.1); border:1px solid rgba(160,100,220,0.2);color:#a064dc;}
+.tf-h1 {background:rgba(100,140,255,0.1); border:1px solid rgba(100,140,255,0.2);color:#648cff;}
+.tf-m30{background:rgba(180,140,255,0.1); border:1px solid rgba(180,140,255,0.2);color:#b48cff;}
+.tf-m15{background:rgba(220,120,200,0.1); border:1px solid rgba(220,120,200,0.2);color:#dc78c8;}
+.tf-m5 {background:rgba(255,120,160,0.1); border:1px solid rgba(255,120,160,0.2);color:#ff78a0;}
+.tf-custom{background:rgba(160,160,160,0.1);border:1px solid rgba(160,160,160,0.2);color:#a0a0a0;}
+
+/* ===== TF CONFIG MODAL ===== */
+.modal-wide{max-width:420px!important;}
+.tf-cfg-section{margin-bottom:14px;}
+.tf-cfg-label{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#6a8a9a;margin-bottom:8px;}
+.tf-active-list{display:flex;flex-wrap:wrap;gap:6px;min-height:32px;}
+.tf-active-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;font-family:'Cinzel',serif;letter-spacing:1px;cursor:default;}
+.tf-active-tag .rm{cursor:pointer;opacity:0.8;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;transition:opacity 0.15s;}
+.tf-active-tag .rm:hover{opacity:1;}
+.tf-catalog-grid{display:flex;flex-wrap:wrap;gap:6px;}
+.tf-cat-btn{padding:6px 12px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.2);color:#9aaabb;transition:all 0.15s;}
+.tf-cat-btn:hover{border-color:rgba(201,168,76,0.5);color:#c9a84c;background:rgba(201,168,76,0.08);}
+.tf-cat-btn.already{opacity:0.3;cursor:default;pointer-events:none;}
+.tf-custom-row{display:flex;gap:7px;margin-top:8px;}
+.tf-custom-inp{flex:1;padding:8px 10px;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);color:#f0ead6;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;outline:none;}
+.tf-custom-inp:focus{border-color:rgba(201,168,76,0.4);}
+.tf-custom-inp::placeholder{text-transform:none;letter-spacing:0;color:#2a3a4a;font-size:11px;}
+
+/* ===== TF CARD ===== */
+.tf-card-h{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;}
+.tf-card-h:hover{border-color:rgba(201,168,76,0.35);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.tf-card-h:active{transform:scale(0.97);}
+
+.tf-card-h-top{display:flex;align-items:center;gap:10px;padding:14px 14px 11px;}
+.tf-badge{font-family:'Cinzel',serif;font-size:13px;font-weight:700;padding:5px 12px;border-radius:6px;letter-spacing:1px;flex-shrink:0;}
+.tf-mn{background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;}
+.tf-w1{background:rgba(100,150,210,0.1);border:1px solid rgba(100,150,210,0.2);color:#6090c8;}
+.tf-d1{background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.2);color:#5cb870;}
+.tf-h4{background:rgba(180,100,210,0.1);border:1px solid rgba(180,100,210,0.2);color:#b870d8;}
+.tf-card-name{font-size:12px;font-weight:400;color:#b8c8d8;letter-spacing:0.5px;}
+
+/* Thumbnail */
+.tf-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#06090e;overflow:hidden;}
+.tf-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.tf-thumb-empty{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.tf-thumb-icon{font-size:36px;opacity:0.12;}
+.tf-thumb-hint{font-size:11px;color:#2a3a4a;text-align:center;line-height:1.6;}
+/* Has-image overlay on hover */
+.tf-thumb .zoom-hint{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background 0.2s;opacity:0;}
+.tf-card-h:hover .tf-thumb .zoom-hint{background:rgba(0,0,0,0.35);opacity:1;}
+.zoom-hint-icon{font-size:22px;}
+
+/* Notes preview */
+.tf-notes-preview{padding:10px 14px 14px;font-size:12px;color:#5a6a7a;line-height:1.6;min-height:50px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.tf-notes-preview.has-notes{color:#7aaa90;}
+
+/* Has image indicator */
+.tf-card-h.has-img .tf-card-h-top{border-bottom:1px solid rgba(255,255,255,0.04);}
+
+/* ===== TF DETAIL OVERLAY ===== */
+.detail-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.92);backdrop-filter:blur(6px);flex-direction:column;overflow-y:auto;}
+.detail-overlay.open{display:flex;}
+
+.detail-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;position:sticky;top:0;background:#0a0f18;z-index:10;}
+.detail-header-left{display:flex;align-items:center;gap:10px;}
+.detail-pair-label{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#f0ead6;letter-spacing:1.5px;}
+.detail-tf-label{font-size:10px;color:#8a9ab0;letter-spacing:1px;}
+.btn-close-detail{padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#6a7a8a;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.btn-close-detail:hover{background:rgba(255,255,255,0.12);color:#c0c8d8;}
+
+.detail-body{padding:16px;max-width:900px;margin:0 auto;width:100%;}
+
+/* Full image area */
+.detail-img-area{border:1.5px dashed rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;background:#06090e;margin-bottom:12px;position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s;}
+.detail-img-area.has-img{border-style:solid;border-color:rgba(255,255,255,0.06);}
+.detail-img-area img{width:100%;height:auto;display:block;}
+.detail-img-placeholder{text-align:center;padding:40px 20px;pointer-events:none;}
+.detail-ph-icon{font-size:32px;opacity:0.15;margin-bottom:10px;}
+.detail-ph-text{font-size:11px;color:#2a3a4a;line-height:1.7;}
+.detail-file-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+
+.detail-img-btns{display:flex;gap:8px;margin-bottom:14px;}
+.btn-url{flex:1;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:10px;font-weight:400;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#5a6a7a;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.btn-url:hover{border-color:rgba(201,168,76,0.3);color:#c9a84c;}
+.btn-clear-img{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:10px;background:rgba(239,83,80,0.07);border:1px solid rgba(239,83,80,0.15);color:#5a3030;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.btn-clear-img:hover{background:rgba(239,83,80,0.15);color:#ef5350;}
+.btn-clear-tf{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:10px;background:rgba(239,83,80,0.07);border:1px dashed rgba(239,83,80,0.2);color:#6a3535;transition:all 0.15s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.btn-clear-tf:hover{background:rgba(239,83,80,0.15);border-color:rgba(239,83,80,0.5);color:#ef5350;}
+
+/* ===== CHATBOT ===== */
+.bot-bubble{position:fixed;bottom:22px;right:22px;z-index:900;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a2030,#252e42);border:1px solid rgba(201,168,76,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.5),0 0 12px rgba(201,168,76,0.1);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:#c9a84c;font-family:'Cinzel',serif;}
+.bot-bubble:hover{border-color:rgba(201,168,76,0.7);box-shadow:0 4px 24px rgba(0,0,0,0.6),0 0 18px rgba(201,168,76,0.2);transform:scale(1.05);}
+.bot-panel{position:fixed;bottom:86px;right:16px;z-index:900;width:340px;max-width:calc(100vw - 32px);background:#0d1117;border:1px solid rgba(201,168,76,0.2);border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.7);display:flex;flex-direction:column;overflow:hidden;max-height:520px;transform:translateY(16px) scale(0.97);opacity:0;pointer-events:none;transition:all 0.22s cubic-bezier(.4,0,.2,1);}
+.bot-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+.bot-panel-header{display:flex;align-items:center;padding:12px 14px;background:linear-gradient(90deg,rgba(201,168,76,0.07),rgba(201,168,76,0.03));border-bottom:1px solid rgba(201,168,76,0.1);}
+.bot-panel-title{font-family:'Cinzel',serif;font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:1.5px;flex:1;}
+.bot-panel-subtitle{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;margin-left:6px;margin-top:2px;}
+.btn-bot-settings{padding:4px 8px;border-radius:6px;cursor:pointer;font-size:12px;background:none;border:none;color:#3a4a5a;transition:color 0.15s;}
+.btn-bot-settings:hover{color:#c9a84c;}
+.btn-bot-close{padding:4px 8px;border-radius:6px;cursor:pointer;font-size:13px;background:none;border:none;color:#3a4a5a;transition:color 0.15s;margin-left:4px;}
+.btn-bot-close:hover{color:#ef5350;}
+.bot-messages{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;min-height:200px;scrollbar-width:thin;scrollbar-color:#1a2030 transparent;}
+.bot-messages::-webkit-scrollbar{width:4px;}
+.bot-messages::-webkit-scrollbar-thumb{background:#1a2030;border-radius:4px;}
+.bot-msg-user{align-self:flex-end;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);border-radius:10px 10px 2px 10px;padding:8px 12px;font-size:12px;color:#d0c090;max-width:85%;line-height:1.5;}
+.bot-msg-ai{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px 10px 10px 2px;padding:8px 12px;font-size:12px;color:#b8c8d8;max-width:90%;line-height:1.6;white-space:pre-wrap;}
+.bot-msg-ai.typing{color:#3a4a5a;font-style:italic;}
+.bot-empty{text-align:center;padding:20px 10px;font-size:11px;color:#2a3a4a;line-height:1.8;}
+.bot-empty strong{display:block;font-size:13px;color:#3a4a5a;margin-bottom:6px;font-family:'Cinzel',serif;letter-spacing:1px;}
+.bot-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,0.05);}
+.bot-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 10px;font-size:12px;color:#c0c8d8;outline:none;font-family:'DM Sans',sans-serif;transition:border-color 0.2s;}
+.bot-input:focus{border-color:rgba(201,168,76,0.3);}
+.bot-input::placeholder{color:#2a3a4a;}
+.btn-bot-send{padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.btn-bot-send:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.5);}
+.btn-bot-send:disabled{opacity:0.3;cursor:default;}
+
+/* Detail notes */
+.detail-notes-label{font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#7a8a9a;margin-bottom:6px;}
+textarea.detail-notes{width:100%;border-radius:8px;padding:10px 12px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);color:#b8c8d8;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.7;resize:vertical;min-height:120px;transition:border-color 0.2s;outline:none;}
+textarea.detail-notes:focus{border-color:rgba(201,168,76,0.3);color:#d0dce8;}
+textarea.detail-notes::placeholder{color:#3a4a5a;}
+
+/* Nav between TF inside detail */
+.detail-tf-nav{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.detail-tf-btn{padding:5px 12px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1px;border:1px solid rgba(255,255,255,0.08);color:#3a4a5a;background:none;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.detail-tf-btn.active{color:#f0ead6;border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);}
+
+/* ===== MODALS ===== */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#0f1820;border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:22px;width:100%;max-width:300px;}
+.modal-title{font-family:'Cinzel',serif;font-size:12px;color:#c9a84c;letter-spacing:1px;margin-bottom:14px;}
+.modal-input{width:100%;padding:10px 12px;border-radius:8px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);color:#f0ead6;font-family:'DM Sans',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;outline:none;transition:border-color 0.2s;margin-bottom:12px;}
+.modal-input:focus{border-color:rgba(201,168,76,0.4);}
+.modal-input::placeholder{color:#2a3540;text-transform:none;letter-spacing:0;font-size:12px;}
+.modal-input-url{letter-spacing:0!important;text-transform:none!important;font-size:11px!important;}
+.modal-btns{display:flex;gap:8px;}
+.mbtn{flex:1;padding:9px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;transition:all 0.15s;border:1px solid;}
+.mbtn-cancel{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.09);color:#4a5a6a;}
+.mbtn-ok{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
+.mbtn-ok:hover{background:rgba(201,168,76,0.2);}
+
+/* ===== FRACTAL CHECKLIST (inside detail) ===== */
+.fcl-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px;color:#3a5a4a;font-size:8px;font-weight:500;letter-spacing:2px;text-transform:uppercase;}
+.fcl-divider::before,.fcl-divider::after{content:'';flex:1;height:1px;background:rgba(76,175,80,0.15);}
+.fcl-headers{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px;}
+.fcl-head{text-align:center;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1px;padding:5px;}
+.fcl-head-bull{color:#4caf50;}
+.fcl-head-bear{color:#ef5350;}
+.fcl-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px;}
+.fcl-row-label{grid-column:1/-1;background:#080d12;text-align:center;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#3a5a4a;padding:3px 8px;border-radius:4px;}
+.fcl-cell{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:7px;cursor:pointer;border:1px solid;transition:all 0.15s;user-select:none;}
+.fcl-cell-bull{background:rgba(76,175,80,0.04);border-color:rgba(76,175,80,0.15);}
+.fcl-cell-bull.on{background:rgba(76,175,80,0.14);border-color:rgba(76,175,80,0.4);}
+.fcl-cell-bear{background:rgba(239,83,80,0.04);border-color:rgba(239,83,80,0.12);}
+.fcl-cell-bear.on{background:rgba(239,83,80,0.12);border-color:rgba(239,83,80,0.4);}
+.fcl-cb{width:17px;height:17px;border-radius:4px;flex-shrink:0;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all 0.15s;}
+.fcl-cb-bull{border-color:rgba(76,175,80,0.4);color:transparent;}
+.fcl-cell-bull.on .fcl-cb-bull{background:#4caf50;border-color:#4caf50;color:#fff;}
+.fcl-cb-bear{border-color:rgba(239,83,80,0.4);color:transparent;}
+.fcl-cell-bear.on .fcl-cb-bear{background:#ef5350;border-color:#ef5350;color:#fff;}
+.fcl-text{font-size:10px;font-weight:300;line-height:1.4;flex:1;color:#6a8a7a;}
+.fcl-cell-bear .fcl-text{color:#8a6a6a;}
+.fcl-cell-bull.on .fcl-text{color:#aad8b8;}
+.fcl-cell-bear.on .fcl-text{color:#d8aaaa;}
+.fcl-stop{grid-column:1/-1;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;background:rgba(239,83,80,0.06);border:1px solid rgba(239,83,80,0.15);}
+.fcl-stop-text{font-size:10px;color:#8a5050;}
+.fcl-exec{grid-column:1/-1;background:rgba(76,175,80,0.06);border:1px solid rgba(76,175,80,0.2);border-radius:7px;padding:10px;margin-top:4px;}
+.fcl-exec-title{font-family:'Cinzel',serif;font-size:9px;color:#4caf50;letter-spacing:1px;margin-bottom:7px;}
+.fcl-exec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;}
+.fcl-exec-item{background:#0d1117;border:1px solid rgba(76,175,80,0.12);border-radius:5px;padding:6px 7px;}
+.fcl-exec-lbl{font-size:7px;text-transform:uppercase;letter-spacing:1px;color:#3a6a3e;margin-bottom:2px;}
+.fcl-exec-val{font-size:9px;color:#7acc80;font-weight:300;}
+
+/* ===== RESUMEN CARD ===== */
+.tf-card-resumen{background:linear-gradient(135deg,#0a1008,#080d15);border:1px solid rgba(201,168,76,0.25);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;grid-column:span 1;}
+.tf-card-resumen:hover{border-color:rgba(201,168,76,0.5);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.1);}
+.tf-card-resumen::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);}
+.resumen-top{padding:14px 14px 10px;display:flex;align-items:center;gap:8px;}
+.resumen-badge{font-family:'Cinzel',serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:1px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:#c9a84c;}
+.resumen-title{font-size:11px;color:#7a6a4a;letter-spacing:0.5px;}
+.resumen-body{padding:0 14px 14px;min-height:100px;display:flex;align-items:center;justify-content:center;}
+.resumen-empty{text-align:center;color:#3a4a2a;font-size:10px;line-height:1.7;}
+.resumen-summary{width:100%;}
+.resumen-line{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:10px;}
+.resumen-line:last-child{border-bottom:none;}
+.resumen-tf{font-family:'Cinzel',serif;font-size:9px;font-weight:700;width:28px;flex-shrink:0;}
+.resumen-status{flex:1;color:#6a7a6a;}
+.resumen-status.bull{color:#5caf70;}
+.resumen-status.bear{color:#cf6060;}
+.resumen-score{font-size:9px;color:#4a5a4a;}
+.resumen-verdict{margin-top:10px;padding:8px 10px;border-radius:7px;text-align:center;font-size:11px;font-weight:500;letter-spacing:0.5px;}
+.verdict-bull{background:rgba(76,175,80,0.12);border:1px solid rgba(76,175,80,0.3);color:#6cdf80;}
+.verdict-bear{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.25);color:#df7070;}
+.verdict-neutral{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:#c9a84c;}
+
+/* Progress badge on TF cards */
+.tf-progress-badge{position:absolute;top:8px;right:8px;font-size:8px;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.5);color:#4a6a5a;font-weight:500;}
+.tf-progress-badge.has-checks{color:#6caf80;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.2);}
+
+/* ===== CHECKLIST ===== */
+.cl-wrap{padding-bottom:80px;}
+.hero{text-align:center;padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;background:#0d1117;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);}
+.hero-badge{display:inline-block;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:3px 14px;font-size:9px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:500;margin-bottom:6px;}
 .hero-title{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#f0ead6;letter-spacing:1px;margin-bottom:2px;}
 .hero-sub{font-size:9px;color:#4a5a6a;letter-spacing:1px;}
-
-/* PROGRESS */
-.progress-bar{
-  height:3px;background:#1a2030;
-  position:sticky;top:0;z-index:99;
-}
-.progress-fill{
-  height:100%;background:linear-gradient(90deg,#4caf50,#c9a84c);
-  width:0%;transition:width 0.3s ease;
-}
-
-/* CONTENT */
-.content{padding:0 10px;max-width:700px;margin:0 auto;}
-
-/* COL HEADERS */
+.cl-progress{height:3px;background:#1a2030;}
+.cl-progress-fill{height:100%;background:linear-gradient(90deg,#4caf50,#c9a84c);width:0%;transition:width 0.3s ease;}
+.cl-content{padding:0 10px;max-width:700px;margin:0 auto;}
 .col-headers{display:grid;grid-template-columns:1fr 20px 1fr;padding:10px 0 0;}
 .col-h{padding:7px 8px;border-radius:8px 8px 0 0;text-align:center;}
 .col-h-green{background:rgba(76,175,80,0.12);border:1px solid rgba(76,175,80,0.25);border-bottom:none;}
@@ -71,30 +287,11 @@ body{
 .col-h-sub{font-size:8px;font-weight:300;margin-top:1px;}
 .col-h-green .col-h-sub{color:#3a7a3e;}
 .col-h-red .col-h-sub{color:#7a3535;}
-
-/* ROWS */
-.rows{}
 .row-group{margin-bottom:1px;}
-.row-label{
-  background:#111820;
-  border-left:1px solid rgba(255,255,255,0.05);
-  border-right:1px solid rgba(255,255,255,0.05);
-  padding:4px 8px;
-  font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
-  color:#3a4a5a;text-align:center;
-}
+.row-label{background:#111820;border-left:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.05);padding:4px 8px;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#3a4a5a;text-align:center;}
 .row{display:grid;grid-template-columns:1fr 20px 1fr;}
-
-.cell{
-  padding:9px 8px;
-  border:1px solid rgba(255,255,255,0.05);
-  display:flex;align-items:center;gap:8px;
-  min-height:46px;cursor:pointer;
-  transition:background 0.15s;
-  user-select:none;
-}
+.cell{padding:9px 8px;border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:8px;min-height:46px;cursor:pointer;transition:background 0.15s;user-select:none;}
 .cell:active{opacity:0.8;}
-
 .cell-green{background:rgba(76,175,80,0.04);border-color:rgba(76,175,80,0.15);}
 .cell-green.tapped{background:rgba(76,175,80,0.12);}
 .cell-red{background:rgba(239,83,80,0.04);border-color:rgba(239,83,80,0.15);}
@@ -102,19 +299,11 @@ body{
 .cell-mid{background:#0d1117;border-color:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;cursor:default;}
 .cell-stop{background:rgba(239,83,80,0.06);border:1px solid rgba(239,83,80,0.18);cursor:default;}
 .cell-wait{background:rgba(245,166,35,0.05);border:1px solid rgba(245,166,35,0.15);cursor:default;}
-
-/* CHECKBOX */
-.cb{
-  width:20px;height:20px;border-radius:5px;flex-shrink:0;
-  border:1.5px solid;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.15s;font-size:12px;font-weight:700;
-}
+.cb{width:20px;height:20px;border-radius:5px;flex-shrink:0;border:1.5px solid;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:12px;font-weight:700;}
 .cb-green{border-color:rgba(76,175,80,0.5);color:transparent;}
 .cell-green.tapped .cb-green{background:#4caf50;border-color:#4caf50;color:#fff;}
 .cb-red{border-color:rgba(239,83,80,0.5);color:transparent;}
 .cell-red.tapped .cb-red{background:#ef5350;border-color:#ef5350;color:#fff;}
-
 .cell-text{font-size:11px;font-weight:300;line-height:1.4;flex:1;}
 .cell-green .cell-text{color:#8ab8a0;}
 .cell-red .cell-text{color:#b88a8a;}
@@ -122,373 +311,1116 @@ body{
 .cell-red.tapped .cell-text{color:#d8aaaa;}
 .cell-stop .cell-text{color:#cc5555;font-weight:400;font-size:10px;}
 .cell-wait .cell-text{color:#cc9933;font-weight:400;font-size:10px;}
-
 .mid-dot{width:5px;height:5px;border-radius:50%;background:#1e2530;}
-
-.badge{
-  display:inline-flex;align-items:center;
-  border-radius:4px;padding:2px 5px;
-  font-size:8px;font-weight:500;letter-spacing:1px;
-  flex-shrink:0;white-space:nowrap;
-}
+.badge{display:inline-flex;align-items:center;border-radius:4px;padding:2px 5px;font-size:8px;font-weight:500;letter-spacing:1px;flex-shrink:0;white-space:nowrap;}
 .badge-stop{background:rgba(239,83,80,0.15);border:1px solid rgba(239,83,80,0.3);color:#ef5350;}
 .badge-wait{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.3);color:#f5a623;}
-
-/* EXEC */
-.exec-block{
-  background:rgba(76,175,80,0.06);
-  border:1px solid rgba(76,175,80,0.2);
-  border-radius:0 0 8px 8px;
-  padding:10px;margin-bottom:1px;
-}
+.exec-block{background:rgba(76,175,80,0.06);border:1px solid rgba(76,175,80,0.2);border-radius:0 0 8px 8px;padding:10px;margin-bottom:1px;}
 .exec-title{font-family:'Cinzel',serif;font-size:9px;font-weight:600;color:#4caf50;letter-spacing:1px;margin-bottom:8px;}
 .exec-items{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
 .exec-item{background:#0d1117;border:1px solid rgba(76,175,80,0.15);border-radius:6px;padding:7px 8px;}
 .exec-item-label{font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#3a6a3e;margin-bottom:3px;}
 .exec-item-val{font-size:10px;color:#7acc80;font-weight:300;line-height:1.4;}
+.footer-cl{margin:10px 0 0;padding:12px;border:1px solid rgba(201,168,76,0.1);border-radius:8px;background:rgba(201,168,76,0.02);text-align:center;}
+.footer-cl-text{font-size:9px;color:#7a6a4a;line-height:1.7;font-style:italic;}
+.footer-cl-text strong{color:#c9a84c;font-style:normal;}
 
-/* BOTTOM BAR */
-.bottom-bar{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#0d1117;border-top:1px solid rgba(255,255,255,0.08);
-  padding:10px 16px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;z-index:200;
-}
+/* ===== BOTTOM BAR ===== */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#0d1117;border-top:1px solid rgba(255,255,255,0.08);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;}
+.bottom-bar.hidden{display:none;}
 .progress-text{font-size:10px;color:#4a5a6a;white-space:nowrap;}
 .progress-text span{color:#c9a84c;font-weight:500;}
-
-.btn-reset{
-  background:rgba(239,83,80,0.1);
-  border:1px solid rgba(239,83,80,0.3);
-  border-radius:8px;padding:8px 18px;
-  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
-  color:#ef5350;cursor:pointer;letter-spacing:0.5px;
-  transition:all 0.15s;
-}
-.btn-reset:active{background:rgba(239,83,80,0.2);}
-
-.status-pill{
-  padding:6px 14px;border-radius:8px;
-  font-size:10px;font-weight:500;letter-spacing:0.5px;
-  transition:all 0.3s;
-}
+.btn-reset{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.3);border-radius:8px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:#ef5350;cursor:pointer;letter-spacing:0.5px;}
+.status-pill{padding:6px 14px;border-radius:8px;font-size:10px;font-weight:500;letter-spacing:0.5px;transition:all 0.3s;}
 .status-pending{background:rgba(74,90,106,0.2);border:1px solid rgba(74,90,106,0.3);color:#4a5a6a;}
 .status-go{background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);color:#4caf50;}
 .status-warn{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);color:#f5a623;}
 
-/* FOOTER */
-.footer{
-  margin:10px 0 0;padding:12px;
-  border:1px solid rgba(201,168,76,0.1);border-radius:8px;
-  background:rgba(201,168,76,0.02);text-align:center;
-}
-.footer-text{font-size:9px;color:#7a6a4a;line-height:1.7;font-style:italic;}
-.footer-text strong{color:#c9a84c;font-style:normal;}
-
-/* TABLET */
 @media(min-width:600px){
-  .content{padding:0 20px;}
+  .cl-content{padding:0 20px;}
   .cell{padding:11px 12px;min-height:52px;}
   .cell-text{font-size:12px;}
   .cb{width:22px;height:22px;}
   .hero-title{font-size:18px;}
-  .exec-item-val{font-size:11px;}
 }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-badge">✦ Checklist Operativo ✦</div>
-  <div class="hero-title">SEÑAL RECIBIDA — FILTRO MENTAL</div>
-  <div class="hero-sub">Marca cada casilla · D1 contexto · H4 ejecución</div>
-</div>
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-
-<div class="content">
-
-  <!-- COL HEADERS -->
-  <div class="col-headers">
-    <div class="col-h col-h-green">
-      <div class="col-h-title">ALCISTA</div>
-      <div class="col-h-sub">señal larga</div>
-    </div>
-    <div></div>
-    <div class="col-h col-h-red">
-      <div class="col-h-title">BAJISTA</div>
-      <div class="col-h-sub">señal corta</div>
+<!-- ===== TOP NAV ===== -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <div class="app-logo">SISTEMA <em>TRAMPA</em></div>
+    <div class="main-tabs">
+      <button class="main-tab active" onclick="switchSection('bitacora',this)">Bitácora</button>
+      <button class="main-tab" onclick="switchSection('checklist',this)">Checklist</button>
     </div>
   </div>
+</nav>
 
-  <div class="rows">
+<!-- ===== BITÁCORA ===== -->
+<section id="sec-bitacora" class="section active">
+  <div class="pairs-bar" id="pairsBar">
+    <button class="btn-add-pair" onclick="openAddPair()">＋</button>
+  </div>
+  <div id="pairContent"></div>
+</section>
 
-    <!-- 1. SEÑAL -->
-    <div class="row-group">
-      <div class="row-label">1 — señal escáner (telegram)</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Señal <strong style="color:#6fcf75">alcista</strong> recibida</div>
+<!-- ===== CHECKLIST ===== -->
+<section id="sec-checklist" class="section">
+  <div class="cl-wrap">
+    <div class="hero">
+      <div class="hero-badge">✦ Checklist Operativo ✦</div>
+      <div class="hero-title">SEÑAL RECIBIDA — FILTRO MENTAL</div>
+      <div class="hero-sub">Marca cada casilla · D1 contexto · H4 ejecución</div>
+    </div>
+    <div class="cl-progress"><div class="cl-progress-fill" id="progressFill"></div></div>
+    <div class="cl-content">
+      <div class="col-headers">
+        <div class="col-h col-h-green"><div class="col-h-title">ALCISTA</div><div class="col-h-sub">señal larga</div></div>
+        <div></div>
+        <div class="col-h col-h-red"><div class="col-h-title">BAJISTA</div><div class="col-h-sub">señal corta</div></div>
+      </div>
+      <div class="rows">
+        <div class="row-group">
+          <div class="row-label">1 — señal escáner (telegram)</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Señal <strong style="color:#6fcf75">alcista</strong> recibida</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Señal <strong style="color:#ff7777">bajista</strong> recibida</div></div>
+          </div>
         </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Señal <strong style="color:#ff7777">bajista</strong> recibida</div>
+        <div class="row-group">
+          <div class="row-label">2 — diario · dibujar zonas D1</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div></div>
+          </div>
+        </div>
+        <div class="row-group">
+          <div class="row-label">3 — diario · sesgo D1</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Precio en/desde <strong style="color:#6fcf75">soporte D1</strong><br><span style="font-size:9px;color:#3a6a3e">sesgo alcista confirmado</span></div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Precio en/desde <strong style="color:#ff7777">resistencia D1</strong><br><span style="font-size:9px;color:#6a3a3a">sesgo bajista confirmado</span></div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Sesgo contrario — descarta señal</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Sesgo contrario — descarta señal</div></div>
+          </div>
+        </div>
+        <div class="row-group">
+          <div class="row-label">4 — diario · posición del precio</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">En zona D1 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">En zona D1 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-wait"><div class="badge badge-wait">ESPERA</div><div class="cell-text">A mitad del rango D1</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-wait"><div class="badge badge-wait">ESPERA</div><div class="cell-text">A mitad del rango D1</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Llegando a zona contraria D1</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Llegando a zona contraria D1</div></div>
+          </div>
+        </div>
+        <div class="row-group">
+          <div class="row-label">5 — H4 · dibujar zonas H4</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div></div>
+          </div>
+        </div>
+        <div class="row-group">
+          <div class="row-label">6 — H4 · posición del precio</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">En zona H4 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">En zona H4 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-wait"><div class="badge badge-wait">ESPERA</div><div class="cell-text">A mitad del rango H4</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-wait"><div class="badge badge-wait">ESPERA</div><div class="cell-text">A mitad del rango H4</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Llegando a zona contraria H4</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Llegando a zona contraria H4</div></div>
+          </div>
+        </div>
+        <div class="row-group">
+          <div class="row-label">7 — H4 · patrón trampa</div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Velas 1+2 forman <strong style="color:#6fcf75">nivel S</strong> en zona</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Velas 1+2 forman <strong style="color:#ff7777">nivel S</strong> en zona</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Vela 3 <strong style="color:#6fcf75">rompe S en falso</strong> — trampa</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Vela 3 <strong style="color:#ff7777">rompe S en falso</strong> — trampa</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-green" onclick="toggle(this)"><div class="cb cb-green">✓</div><div class="cell-text">Vela 4 cierra <strong style="color:#6fcf75">por encima</strong> de vela 3</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-red" onclick="toggle(this)"><div class="cb cb-red">✓</div><div class="cell-text">Vela 4 cierra <strong style="color:#ff7777">por debajo</strong> de vela 3</div></div>
+          </div>
+          <div class="row">
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div></div>
+            <div class="cell cell-mid"><div class="mid-dot"></div></div>
+            <div class="cell cell-stop"><div class="badge badge-stop">STOP</div><div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div></div>
+          </div>
+        </div>
+        <div class="exec-block">
+          <div class="exec-title">8 — EJECUCIÓN · <span style="font-weight:300;font-family:'DM Sans',sans-serif;letter-spacing:0;color:#3a6a3e;font-size:8px;">todos los pasos anteriores marcados</span></div>
+          <div class="exec-items">
+            <div class="exec-item"><div class="exec-item-label">Entrada</div><div class="exec-item-val">Mitad del cuerpo vela 4</div></div>
+            <div class="exec-item"><div class="exec-item-label">Stop Loss</div><div class="exec-item-val">Bajo mecha vela 3</div></div>
+            <div class="exec-item"><div class="exec-item-label">Take Profit</div><div class="exec-item-val">Zona contraria D1</div></div>
+          </div>
+        </div>
+        <div class="footer-cl">
+          <div class="footer-cl-text">
+            <strong>La señal ya llegó.</strong> Este checklist decide si es buena, hay que esperar o se descarta.<br>
+            D1 acorrala el precio · H4 confirma la zona · La trampa da la entrada
+          </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- 2. D1 ZONAS -->
-    <div class="row-group">
-      <div class="row-label">2 — diario · dibujar zonas D1</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Zonas D1 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div>
-        </div>
+<!-- ===== TF DETAIL OVERLAY ===== -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-header">
+    <div class="detail-header-left">
+      <span class="tf-badge" id="detailBadge"></span>
+      <div>
+        <div class="detail-pair-label" id="detailPairLabel"></div>
+        <div class="detail-tf-label" id="detailTfLabel"></div>
       </div>
     </div>
-
-    <!-- 3. D1 SESGO -->
-    <div class="row-group">
-      <div class="row-label">3 — diario · sesgo D1</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Precio en/desde <strong style="color:#6fcf75">soporte D1</strong><br><span style="font-size:9px;color:#3a6a3e">sesgo alcista confirmado</span></div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Precio en/desde <strong style="color:#ff7777">resistencia D1</strong><br><span style="font-size:9px;color:#6a3a3a">sesgo bajista confirmado</span></div>
-        </div>
+    <button class="btn-close-detail" onclick="closeDetail()">✕ Cerrar</button>
+  </div>
+  <div class="detail-body">
+    <!-- TF switcher inside detail -->
+    <div class="detail-tf-nav" id="detailTfNav"></div>
+    <!-- Image -->
+    <div class="detail-img-area" id="detailImgArea">
+      <div class="detail-img-placeholder" id="detailImgPlaceholder">
+        <div class="detail-ph-icon">🖼</div>
+        <div class="detail-ph-text">Toca para subir imagen<br>o usa el botón URL abajo</div>
       </div>
-      <div class="row">
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Sesgo contrario — descarta señal</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Sesgo contrario — descarta señal</div>
-        </div>
-      </div>
+      <input type="file" accept="image/*" class="detail-file-input" id="detailFileInput" onchange="handleDetailFileUpload(event)">
     </div>
-
-    <!-- 4. D1 POSICIÓN -->
-    <div class="row-group">
-      <div class="row-label">4 — diario · posición del precio</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">En zona D1 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">En zona D1 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-wait">
-          <div class="badge badge-wait">ESPERA</div>
-          <div class="cell-text">A mitad del rango D1</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-wait">
-          <div class="badge badge-wait">ESPERA</div>
-          <div class="cell-text">A mitad del rango D1</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Llegando a zona contraria D1</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Llegando a zona contraria D1</div>
-        </div>
-      </div>
+    <!-- Image buttons -->
+    <div class="detail-img-btns">
+      <button class="btn-url" onclick="openUrlModal()">🔗 Pegar URL de TradingView</button>
+      <button class="btn-clear-img" id="detailClearBtn" style="display:none" onclick="clearDetailImg()">✕ Quitar</button>
+      <button class="btn-clear-tf" onclick="clearDetailTf()">🗑 Limpiar TF</button>
     </div>
+    <!-- Notes -->
+    <div class="detail-notes-label">Análisis · Notas · Contexto</div>
+    <textarea class="detail-notes" id="detailNotes"
+      placeholder="De dónde viene el precio · zonas clave · sesgo · dirección proyectada · touch downs identificados..."
+      oninput="saveDetailNotes(this.value)"></textarea>
 
-    <!-- 5. H4 ZONAS -->
-    <div class="row-group">
-      <div class="row-label">5 — H4 · dibujar zonas H4</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#3a6a3e">soporte y resistencia</span></div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Zonas H4 marcadas<br><span style="font-size:9px;color:#6a3a3a">soporte y resistencia</span></div>
-        </div>
-      </div>
+    <!-- Fractal Checklist -->
+    <div class="fcl-divider">
+      <span>CHECKLIST FRACTAL</span>
     </div>
-
-    <!-- 6. H4 POSICIÓN -->
-    <div class="row-group">
-      <div class="row-label">6 — H4 · posición del precio</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">En zona H4 o <strong style="color:#6fcf75">recién salido</strong> con recorrido</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">En zona H4 o <strong style="color:#ff7777">recién salido</strong> con recorrido</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-wait">
-          <div class="badge badge-wait">ESPERA</div>
-          <div class="cell-text">A mitad del rango H4</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-wait">
-          <div class="badge badge-wait">ESPERA</div>
-          <div class="cell-text">A mitad del rango H4</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Llegando a zona contraria H4</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Llegando a zona contraria H4</div>
-        </div>
-      </div>
+    <div class="fcl-headers">
+      <div class="fcl-head fcl-head-bull">▲ ALCISTA</div>
+      <div class="fcl-head fcl-head-bear">▼ BAJISTA</div>
     </div>
-
-    <!-- 7. TRAMPA -->
-    <div class="row-group">
-      <div class="row-label">7 — H4 · patrón trampa</div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Velas 1+2 forman <strong style="color:#6fcf75">nivel S</strong> en zona</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Velas 1+2 forman <strong style="color:#ff7777">nivel S</strong> en zona</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Vela 3 <strong style="color:#6fcf75">rompe S en falso</strong> — trampa</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Vela 3 <strong style="color:#ff7777">rompe S en falso</strong> — trampa</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-green" onclick="toggle(this)">
-          <div class="cb cb-green">✓</div>
-          <div class="cell-text">Vela 4 cierra <strong style="color:#6fcf75">por encima</strong> de vela 3</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-red" onclick="toggle(this)">
-          <div class="cb cb-red">✓</div>
-          <div class="cell-text">Vela 4 cierra <strong style="color:#ff7777">por debajo</strong> de vela 3</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div>
-        </div>
-        <div class="cell cell-mid"><div class="mid-dot"></div></div>
-        <div class="cell cell-stop">
-          <div class="badge badge-stop">STOP</div>
-          <div class="cell-text">Sin nivel S o sin trampa — espera nueva señal</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. EJECUCIÓN -->
-    <div class="exec-block">
-      <div class="exec-title">8 — EJECUCIÓN · <span style="font-weight:300;font-family:'DM Sans',sans-serif;letter-spacing:0;color:#3a6a3e;font-size:8px;">todos los pasos anteriores marcados</span></div>
-      <div class="exec-items">
-        <div class="exec-item">
-          <div class="exec-item-label">Entrada</div>
-          <div class="exec-item-val">Mitad del cuerpo vela 4</div>
-        </div>
-        <div class="exec-item">
-          <div class="exec-item-label">Stop Loss</div>
-          <div class="exec-item-val">Bajo mecha vela 3</div>
-        </div>
-        <div class="exec-item">
-          <div class="exec-item-label">Take Profit</div>
-          <div class="exec-item-val">Zona contraria D1</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="footer-text">
-        <strong>La señal ya llegó.</strong> Este checklist decide si es buena, hay que esperar o se descarta.<br>
-        D1 acorrala el precio · H4 confirma la zona · La trampa da la entrada
-      </div>
-    </div>
-
+    <div id="detailChecklist"></div>
   </div>
 </div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom-bar">
+<!-- ===== MODAL: CONFIGURAR TIMEFRAMES ===== -->
+<div class="modal-overlay" id="tfConfigModal">
+  <div class="modal modal-wide">
+    <div class="modal-title">⚙ TIMEFRAMES · <span id="tfConfigPairName" style="color:#f0ead6;"></span></div>
+
+    <div class="tf-cfg-section">
+      <div class="tf-cfg-label">Activos — toca ✕ para quitar</div>
+      <div class="tf-active-list" id="tfActiveList"></div>
+    </div>
+
+    <div class="tf-cfg-section">
+      <div class="tf-cfg-label">Añadir del catálogo</div>
+      <div class="tf-catalog-grid" id="tfCatalogGrid"></div>
+    </div>
+
+    <div class="tf-cfg-section">
+      <div class="tf-cfg-label">Personalizado</div>
+      <div class="tf-custom-row">
+        <input class="tf-custom-inp" id="tfCustomInp" maxlength="6" placeholder="ej: W2, H8, 6M..."
+          oninput="this.value=this.value.toUpperCase()"
+          onkeydown="if(event.key==='Enter')addCustomTf()">
+        <button class="mbtn mbtn-ok" style="flex:0;padding:8px 14px;" onclick="addCustomTf()">＋</button>
+      </div>
+    </div>
+
+    <button class="mbtn mbtn-ok" style="width:100%;margin-top:4px;" onclick="closeModal('tfConfigModal')">✓ Listo</button>
+  </div>
+</div>
+
+<!-- ===== MODAL: AÑADIR PAR ===== -->
+<div class="modal-overlay" id="addPairModal">
+  <div class="modal">
+    <div class="modal-title">✦ AÑADIR PAR</div>
+    <input class="modal-input" id="addPairInput" type="text" placeholder="ej. EURUSD"
+      maxlength="12" oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')confirmAddPair()">
+    <div class="modal-btns">
+      <button class="mbtn mbtn-cancel" onclick="closeModal('addPairModal')">Cancelar</button>
+      <button class="mbtn mbtn-ok" onclick="confirmAddPair()">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: URL ===== -->
+<div class="modal-overlay" id="urlModal">
+  <div class="modal">
+    <div class="modal-title" id="urlModalTitle">✦ URL DE IMAGEN</div>
+    <div style="font-size:9px;color:#5a6a4a;line-height:1.7;margin-bottom:10px;padding:8px 10px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.1);border-radius:6px;">
+      En TradingView: pulsa el icono 📷 <em>cámara</em> → "Publicar imagen" → copia la URL.<br>
+      <span style="color:#3a4a3a;">O mejor: usa 📁 para subir la captura directamente.</span>
+    </div>
+    <input class="modal-input modal-input-url" id="urlInput" type="url"
+      placeholder="https://www.tradingview.com/x/..." onkeydown="if(event.key==='Enter')confirmUrl()">
+    <div class="modal-btns">
+      <button class="mbtn mbtn-cancel" onclick="closeModal('urlModal')">Cancelar</button>
+      <button class="mbtn mbtn-ok" onclick="confirmUrl()">Usar URL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHATBOT ===== -->
+<button class="bot-bubble" onclick="toggleChat()" title="Trampa IA">✦</button>
+<div class="bot-panel" id="botPanel">
+  <div class="bot-panel-header">
+    <div>
+      <div class="bot-panel-title">TRAMPA · IA</div>
+    </div>
+    <button class="btn-bot-settings" onclick="openApiKeyPrompt()" title="API Key">⚙</button>
+    <button class="btn-bot-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="bot-messages" id="botMessages">
+    <div class="bot-empty">
+      <strong>✦ Asistente</strong>
+      Pregúntame sobre tus pares.<br>
+      <em>"¿Qué dice el EURUSD?"</em><br>
+      <em>"¿Algún par listo para la trampa?"</em><br>
+      <em>"Resumen del sesgo semanal"</em>
+    </div>
+  </div>
+  <div class="bot-input-row">
+    <input class="bot-input" id="botInput" placeholder="Pregunta sobre tus pares..."
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendBotMsg();}">
+    <button class="btn-bot-send" id="botSendBtn" onclick="sendBotMsg()">➤</button>
+  </div>
+</div>
+
+<!-- ===== BOTTOM BAR ===== -->
+<div class="bottom-bar hidden" id="bottomBar">
   <div class="progress-text">Completado: <span id="countText">0/8</span></div>
   <div class="status-pill status-pending" id="statusPill">En proceso</div>
   <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
 </div>
 
 <script>
-const TOTAL = 8;
+// =============================================
+//  TF CATALOG — todas las temporalidades
+// =============================================
+const TF_CATALOG = {
+  'Y'  :{ name:'ANUAL',      cls:'tf-y',   desc:'Ciclos de años · macro total · visión de décadas' },
+  '6M' :{ name:'SEMESTRAL',  cls:'tf-6m',  desc:'Ciclos semestrales · tendencia macro' },
+  '3M' :{ name:'TRIMESTRAL', cls:'tf-3m',  desc:'Ciclos trimestrales' },
+  'MN' :{ name:'MENSUAL',    cls:'tf-mn',  desc:'De dónde viene · hacia dónde va · zonas clave' },
+  'W1' :{ name:'SEMANAL',    cls:'tf-w1',  desc:'Contexto semanal · confirmación del sesgo' },
+  'D1' :{ name:'DIARIO',     cls:'tf-d1',  desc:'Sesgo diario · posición del precio' },
+  'H12':{ name:'H12',        cls:'tf-h12', desc:'Medio día · estructura intradiaria' },
+  'H8' :{ name:'H8',         cls:'tf-h8',  desc:'8 horas · sesiones de mercado' },
+  'H4' :{ name:'H4',         cls:'tf-h4',  desc:'Señal incrustada · patrón trampa' },
+  'H2' :{ name:'H2',         cls:'tf-h2',  desc:'2 horas · refinamiento de entrada' },
+  'H1' :{ name:'H1',         cls:'tf-h1',  desc:'1 hora · precisión de entrada' },
+  'M30':{ name:'M30',        cls:'tf-m30', desc:'30 min · micro entrada' },
+  'M15':{ name:'M15',        cls:'tf-m15', desc:'15 min · micro entrada' },
+  'M5' :{ name:'M5',         cls:'tf-m5',  desc:'5 min · scalping' },
+};
+const TF_DEFAULT = ['MN','W1','D1','H4'];
 
-function toggle(el) {
-  el.classList.toggle('tapped');
+function getTfInfo(id) {
+  return TF_CATALOG[id] || { name:id, cls:'tf-custom', desc:'Temporalidad personalizada' };
+}
+
+function getActiveTfs(pair) {
+  if (!pairData[pair]) pairData[pair] = {};
+  if (!pairData[pair]._tfs) pairData[pair]._tfs = [...TF_DEFAULT];
+  return pairData[pair]._tfs;
+}
+
+// =============================================
+//  STATE
+// =============================================
+let pairs       = JSON.parse(localStorage.getItem('st_pairs') || '[]');
+let pairData    = JSON.parse(localStorage.getItem('st_data')  || '{}');
+let currentPair = pairs.length > 0 ? pairs[0] : null;
+let detailPair  = null;
+let detailTf    = null;
+let urlModalCallback = null;
+
+function saveState() {
+  localStorage.setItem('st_pairs', JSON.stringify(pairs));
+  localStorage.setItem('st_data',  JSON.stringify(pairData));
+}
+
+// Checklist fractal — mismos ítems en todos los TF
+const CL_ITEMS = [
+  { group:'señal',   bull:'Señal alcista en {TF}',              bear:'Señal bajista en {TF}' },
+  { group:'zonas',   bull:'Zonas {TF} marcadas — soporte',      bear:'Zonas {TF} marcadas — resistencia' },
+  { group:'sesgo',   bull:'Sesgo alcista {TF} confirmado',      bear:'Sesgo bajista {TF} confirmado' },
+  { group:'posicion',bull:'Precio en zona o recién salido',     bear:'Precio en zona o recién salido' },
+  { group:'trampa1', bull:'Velas 1+2 forman nivel S en zona',   bear:'Velas 1+2 forman nivel S en zona' },
+  { group:'trampa2', bull:'Vela 3 rompe S en falso — trampa',   bear:'Vela 3 rompe S en falso — trampa' },
+  { group:'trampa3', bull:'Vela 4 cierra por encima de vela 3', bear:'Vela 4 cierra por debajo de vela 3' },
+];
+const CL_GROUPS = {
+  señal:   '— señal',
+  zonas:   '— zonas',
+  sesgo:   '— sesgo',
+  posicion:'— posición del precio',
+  trampa1: '— patrón trampa',
+  trampa2: null,
+  trampa3: null,
+};
+
+function getPairTfData(pair, tf) {
+  if (!pairData[pair])     pairData[pair] = {};
+  if (!pairData[pair][tf]) pairData[pair][tf] = {
+    img:'', notes:'',
+    checks:{ bull: new Array(CL_ITEMS.length).fill(false),
+             bear: new Array(CL_ITEMS.length).fill(false) }
+  };
+  // backwards compat: add checks if missing
+  if (!pairData[pair][tf].checks) {
+    pairData[pair][tf].checks = {
+      bull: new Array(CL_ITEMS.length).fill(false),
+      bear: new Array(CL_ITEMS.length).fill(false)
+    };
+  }
+  return pairData[pair][tf];
+}
+
+// =============================================
+//  SECTION SWITCH
+// =============================================
+function switchSection(sec, tabEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + sec).classList.add('active');
+  tabEl.classList.add('active');
+  document.getElementById('bottomBar').classList.toggle('hidden', sec !== 'checklist');
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+//  CHECKS HELPERS
+// =============================================
+function getChecksTotal(pair, tf) {
+  const d = getPairTfData(pair, tf);
+  return d.checks.bull.filter(Boolean).length + d.checks.bear.filter(Boolean).length;
+}
+
+function getChecksLabel(pair, tf) {
+  const d = getPairTfData(pair, tf);
+  const bull = d.checks.bull.filter(Boolean).length;
+  const bear = d.checks.bear.filter(Boolean).length;
+  const n = CL_ITEMS.length;
+  if (bull === 0 && bear === 0) return '';
+  if (bull >= bear) return `▲ ${bull}/${n}`;
+  return `▼ ${bear}/${n}`;
+}
+
+// =============================================
+//  RESUMEN CARD
+// =============================================
+function buildResumenCard(pair) {
+  const tfs = getActiveTfs(pair);
+  let bullTfs = 0, bearTfs = 0;
+  let lines = '';
+
+  tfs.forEach(tfId => {
+    const d = getPairTfData(pair, tfId);
+    const bull = d.checks.bull.filter(Boolean).length;
+    const bear = d.checks.bear.filter(Boolean).length;
+    const n = CL_ITEMS.length;
+    const tf = getTfInfo(tfId);
+    let statusCls = '', statusTxt = '';
+    if (bull === 0 && bear === 0) { statusCls=''; statusTxt='sin revisar'; }
+    else if (bull > bear) { statusCls='bull'; statusTxt=`alcista · ${bull}/${n}`; bullTfs++; }
+    else if (bear > bull) { statusCls='bear'; statusTxt=`bajista · ${bear}/${n}`; bearTfs++; }
+    else { statusCls=''; statusTxt=`mixto · ${bull}B/${bear}Ba`; }
+    lines += `<div class="resumen-line">
+      <span class="resumen-tf ${tf.cls}">${tfId}</span>
+      <span class="resumen-status ${statusCls}">${statusTxt}</span>
+    </div>`;
+  });
+
+  const total = tfs.length;
+  let verdict = '', verdictCls = '';
+  if (bullTfs === 0 && bearTfs === 0) {
+    verdict = 'Rellena los checklists de cada TF';
+    verdictCls = 'verdict-neutral';
+  } else if (bullTfs >= Math.ceil(total * 0.6)) {
+    verdict = `▲ ALCISTA — ${bullTfs}/${total} TF alineados`;
+    verdictCls = 'verdict-bull';
+  } else if (bearTfs >= Math.ceil(total * 0.6)) {
+    verdict = `▼ BAJISTA — ${bearTfs}/${total} TF alineados`;
+    verdictCls = 'verdict-bear';
+  } else {
+    verdict = `⚡ MIXTO — ${bullTfs}▲ ${bearTfs}▼ · espera alineación`;
+    verdictCls = 'verdict-neutral';
+  }
+
+  return `
+  <div class="tf-card-resumen" onclick="openResumen('${pair}')">
+    <div class="resumen-top">
+      <span class="resumen-badge">✦</span>
+      <span class="resumen-title">RESUMEN · HISTORY LINES</span>
+    </div>
+    <div class="resumen-body">
+      ${total === 0 ? '<div class="resumen-empty">Sin timeframes</div>' : `
+      <div class="resumen-summary">
+        ${lines}
+        <div class="resumen-verdict ${verdictCls}">${verdict}</div>
+      </div>`}
+    </div>
+  </div>`;
+}
+
+function openResumen(pair) {
+  // Open detail on the first TF — user can navigate from there
+  const tfs = getActiveTfs(pair);
+  if (tfs.length > 0) openDetail(pair, tfs[0]);
+}
+
+function updateBadge(pair, tf, el) {
+  const lbl = getChecksLabel(pair, tf);
+  el.textContent = lbl;
+  el.className = 'tf-progress-badge' + (lbl ? ' has-checks' : '');
+}
+
+// =============================================
+//  PAIRS BAR
+// =============================================
+function renderPairsBar() {
+  const bar = document.getElementById('pairsBar');
+  bar.innerHTML = '';
+  pairs.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'pair-tab' + (p === currentPair ? ' active' : '');
+    btn.textContent = p;
+    btn.onclick = () => selectPair(p);
+    bar.appendChild(btn);
+  });
+  const addBtn = document.createElement('button');
+  addBtn.className = 'btn-add-pair';
+  addBtn.textContent = '＋';
+  addBtn.onclick = openAddPair;
+  bar.appendChild(addBtn);
+}
+
+function selectPair(p) {
+  currentPair = p;
+  renderPairsBar();
+  renderPairContent();
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+//  PAIR CONTENT — 2x2 GRID
+// =============================================
+function renderPairContent() {
+  const wrap = document.getElementById('pairContent');
+
+  if (!currentPair) {
+    wrap.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <div class="empty-title">SIN PARES</div>
+        <div class="empty-sub">Añade tu primer par para comenzar<br>a documentar tu bitácora de trading</div>
+        <div class="btn-empty" onclick="openAddPair()">＋ Añadir primer par</div>
+      </div>`;
+    return;
+  }
+
+  const activeTfs = getActiveTfs(currentPair);
+
+  let html = `<div class="pair-content-wrap">
+    <div class="pair-header">
+      <div class="pair-title">${currentPair} <small>BITÁCORA · HISTORY LINES</small></div>
+      <div style="display:flex;gap:7px;">
+        <button class="btn-del" style="color:#6ed49a;background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.45);" onclick="openTfConfig('${currentPair}')">⚙ TF</button>
+        <button class="btn-del" onclick="deletePair('${currentPair}')">✕</button>
+      </div>
+    </div>
+    <div class="tf-grid">`;
+
+  activeTfs.forEach(tfId => {
+    const tf  = getTfInfo(tfId);
+    const d   = getPairTfData(currentPair, tfId);
+    const hasImg = !!d.img;
+    const notesPreview = d.notes ? d.notes.substring(0, 80) + (d.notes.length > 80 ? '…' : '') : '';
+
+    html += `
+    <div class="tf-card-h${hasImg ? ' has-img' : ''}" onclick="openDetail('${currentPair}','${tfId}')">
+      <div class="tf-card-h-top">
+        <span class="tf-badge ${tf.cls}">${tfId}</span>
+        <span class="tf-card-name">${tf.name}</span>
+      </div>
+      <div class="tf-thumb">
+        ${hasImg
+          ? `<img src="${d.img}" alt="${tfId}"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div class=\\'tf-thumb-empty\\'><div class=\\'tf-thumb-icon\\'>⚠️</div><div class=\\'tf-thumb-hint\\'>Subir imagen<br>directamente</div></div>')">
+             <div class="zoom-hint"><span class="zoom-hint-icon">🔍</span></div>`
+          : `<div class="tf-thumb-empty">
+               <div class="tf-thumb-icon">🖼</div>
+               <div class="tf-thumb-hint">Toca para<br>añadir análisis</div>
+             </div>`
+        }
+        <div class="tf-progress-badge${getChecksTotal(currentPair,tfId)>0?' has-checks':''}" id="badge-${currentPair}-${tfId}">${getChecksLabel(currentPair,tfId)}</div>
+      </div>
+      <div class="tf-notes-preview ${notesPreview ? 'has-notes' : ''}">${notesPreview || '— sin notas —'}</div>
+    </div>`;
+  });
+
+  // Tarjeta RESUMEN
+  html += buildResumenCard(currentPair);
+
+  html += `</div></div>`;
+  wrap.innerHTML = html;
+}
+
+// =============================================
+//  TF DETAIL — FULLSCREEN
+// =============================================
+function openDetail(pair, tf) {
+  detailPair = pair;
+  detailTf   = tf;
+  refreshDetailContent();
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function refreshDetailContent() {
+  const tfObj = getTfInfo(detailTf);
+  const d     = getPairTfData(detailPair, detailTf);
+  const hasImg = !!d.img;
+
+  // Header
+  document.getElementById('detailBadge').className  = 'tf-badge ' + tfObj.cls;
+  document.getElementById('detailBadge').textContent = detailTf;
+  document.getElementById('detailPairLabel').textContent = detailPair;
+  document.getElementById('detailTfLabel').textContent   = tfObj.name + ' · ' + tfObj.desc;
+
+  // TF switcher nav
+  const nav = document.getElementById('detailTfNav');
+  const activeTfsD = getActiveTfs(detailPair);
+  nav.innerHTML = activeTfsD.map(id => {
+    const t = getTfInfo(id);
+    return `<button class="detail-tf-btn${id === detailTf ? ' active' : ''}"
+      onclick="switchDetailTf('${id}')">${id} <span style="font-size:9px;opacity:0.6;">${t.name}</span></button>`;
+  }).join('');
+
+  // Image
+  const imgArea = document.getElementById('detailImgArea');
+  const placeholder = document.getElementById('detailImgPlaceholder');
+  const fileInput   = document.getElementById('detailFileInput');
+  const clearBtn    = document.getElementById('detailClearBtn');
+
+  // Remove old img if any
+  const oldImg = imgArea.querySelector('img');
+  if (oldImg) oldImg.remove();
+
+  if (hasImg) {
+    imgArea.classList.add('has-img');
+    placeholder.style.display = 'none';
+    fileInput.style.display   = 'none';
+    clearBtn.style.display    = 'inline-flex';
+    const img = document.createElement('img');
+    img.src = d.img;
+    img.alt = detailTf;
+    img.onerror = () => {
+      img.remove();
+      placeholder.innerHTML = `
+        <div style="text-align:center;padding:30px 20px;">
+          <div style="font-size:28px;opacity:0.3;margin-bottom:10px;">⚠️</div>
+          <div style="font-size:11px;color:#5a4a2a;margin-bottom:12px;line-height:1.6;">
+            No se puede mostrar la imagen.<br>
+            <span style="color:#3a3a2a;font-size:10px;">TradingView bloquea imágenes externas.<br>Usa el botón 📁 para subir la captura directamente.</span>
+          </div>
+          <a href="${d.img}" target="_blank" style="font-size:10px;color:#c9a84c;text-decoration:none;border:1px solid rgba(201,168,76,0.3);padding:5px 12px;border-radius:6px;">🔗 Abrir enlace</a>
+        </div>`;
+      placeholder.style.display = 'block';
+      fileInput.style.display   = 'block';
+    };
+    imgArea.insertBefore(img, placeholder);
+  } else {
+    imgArea.classList.remove('has-img');
+    placeholder.style.display = 'block';
+    fileInput.style.display   = 'block';
+    clearBtn.style.display    = 'none';
+  }
+
+  // Notes
+  document.getElementById('detailNotes').value = d.notes || '';
+
+  // Fractal checklist
+  renderFractalChecklist(detailPair, detailTf);
+}
+
+function renderFractalChecklist(pair, tf) {
+  const d = getPairTfData(pair, tf);
+  const checks = d.checks;
+  let lastGroup = null;
+  let html = '';
+
+  CL_ITEMS.forEach((item, i) => {
+    // Group label
+    if (item.group !== lastGroup && CL_GROUPS[item.group] !== null) {
+      html += `<div class="fcl-row"><div class="fcl-row-label">${i+1} ${CL_GROUPS[item.group]}</div></div>`;
+      lastGroup = item.group;
+    }
+    const bullLabel = item.bull.replace('{TF}', tf);
+    const bearLabel = item.bear.replace('{TF}', tf);
+    html += `
+    <div class="fcl-row">
+      <div class="fcl-cell fcl-cell-bull${checks.bull[i] ? ' on' : ''}" onclick="toggleCheck('${pair}','${tf}','bull',${i})">
+        <div class="fcl-cb fcl-cb-bull">✓</div>
+        <div class="fcl-text">${bullLabel}</div>
+      </div>
+      <div class="fcl-cell fcl-cell-bear${checks.bear[i] ? ' on' : ''}" onclick="toggleCheck('${pair}','${tf}','bear',${i})">
+        <div class="fcl-cb fcl-cb-bear">✓</div>
+        <div class="fcl-text">${bearLabel}</div>
+      </div>
+    </div>`;
+  });
+
+  // Execution block
+  html += `
+  <div class="fcl-row">
+    <div class="fcl-exec">
+      <div class="fcl-exec-title">EJECUCIÓN ${tf} · <span style="font-weight:300;font-size:8px;color:#3a6a3e;font-family:'DM Sans',sans-serif;letter-spacing:0;">todos los pasos marcados</span></div>
+      <div class="fcl-exec-grid">
+        <div class="fcl-exec-item"><div class="fcl-exec-lbl">Entrada</div><div class="fcl-exec-val">Mitad cuerpo vela 4</div></div>
+        <div class="fcl-exec-item"><div class="fcl-exec-lbl">Stop Loss</div><div class="fcl-exec-val">Bajo mecha vela 3</div></div>
+        <div class="fcl-exec-item"><div class="fcl-exec-lbl">Take Profit</div><div class="fcl-exec-val">Zona contraria</div></div>
+      </div>
+    </div>
+  </div>`;
+
+  document.getElementById('detailChecklist').innerHTML = html;
+}
+
+function toggleCheck(pair, tf, side, idx) {
+  const d = getPairTfData(pair, tf);
+  d.checks[side][idx] = !d.checks[side][idx];
+  saveState();
+  renderFractalChecklist(pair, tf);
+  // Update thumb badge on grid (if visible)
+  const badge = document.getElementById(`badge-${pair}-${tf}`);
+  if (badge) updateBadge(pair, tf, badge);
+}
+
+function switchDetailTf(tf) {
+  // Save current notes before switching
+  const notesVal = document.getElementById('detailNotes').value;
+  getPairTfData(detailPair, detailTf).notes = notesVal;
+  saveState();
+
+  detailTf = tf;
+  refreshDetailContent();
+}
+
+function closeDetail() {
+  // Save notes on close
+  const notesVal = document.getElementById('detailNotes').value;
+  if (detailPair && detailTf) {
+    getPairTfData(detailPair, detailTf).notes = notesVal;
+    saveState();
+  }
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  renderPairContent(); // refresh grid thumbnails
+}
+
+// =============================================
+//  IMAGE HANDLING (detail)
+// =============================================
+function handleDetailFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 1.5 * 1024 * 1024) {
+    if (!confirm('La imagen pesa más de 1.5MB. ¿Continuar?')) return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    getPairTfData(detailPair, detailTf).img = e.target.result;
+    saveState();
+    refreshDetailContent();
+  };
+  reader.readAsDataURL(file);
+}
+
+function openUrlModal() {
+  const d = getPairTfData(detailPair, detailTf);
+  document.getElementById('urlInput').value = (d.img && d.img.startsWith('http')) ? d.img : '';
+  document.getElementById('urlModalTitle').textContent = `✦ URL — ${detailPair} ${detailTf}`;
+  urlModalCallback = (url) => {
+    getPairTfData(detailPair, detailTf).img = url;
+    saveState();
+    refreshDetailContent();
+  };
+  openModal('urlModal');
+  setTimeout(() => document.getElementById('urlInput').focus(), 100);
+}
+
+function confirmUrl() {
+  const raw = document.getElementById('urlInput').value.trim();
+  if (raw && urlModalCallback) urlModalCallback(convertToImageUrl(raw));
+  closeModal('urlModal');
+}
+
+// Convierte URLs de página a URLs de imagen directa
+function convertToImageUrl(url) {
+  if (!url) return url;
+  // TradingView snapshot: https://www.tradingview.com/x/HASH/ → imagen directa S3
+  const tvMatch = url.match(/tradingview\.com\/x\/([a-zA-Z0-9]+)\/?/);
+  if (tvMatch) return `https://s3.tradingview.com/snapshots/x/${tvMatch[1]}.png`;
+  // TradingView chart share: https://www.tradingview.com/chart/SYMBOL/snapshot/HASH/
+  const tvChart = url.match(/tradingview\.com\/chart\/[^/]+\/snapshot\/([a-zA-Z0-9]+)\/?/);
+  if (tvChart) return `https://s3.tradingview.com/snapshots/${tvChart[1]}.png`;
+  return url;
+}
+
+function clearDetailImg() {
+  getPairTfData(detailPair, detailTf).img = '';
+  saveState();
+  refreshDetailContent();
+}
+
+function clearDetailTf() {
+  if (!confirm(`¿Borrar imagen, notas y checks de ${detailPair} ${detailTf}?`)) return;
+  const d = getPairTfData(detailPair, detailTf);
+  d.img    = '';
+  d.notes  = '';
+  d.checks = { bull: Array(CL_ITEMS.length).fill(false), bear: Array(CL_ITEMS.length).fill(false) };
+  saveState();
+  refreshDetailContent();
+  renderPairContent();
+}
+
+// =============================================
+//  NOTES (detail)
+// =============================================
+let notesTimer = null;
+function saveDetailNotes(value) {
+  clearTimeout(notesTimer);
+  notesTimer = setTimeout(() => {
+    getPairTfData(detailPair, detailTf).notes = value;
+    saveState();
+  }, 600);
+}
+
+// =============================================
+//  PAIR MANAGEMENT
+// =============================================
+function openAddPair() {
+  document.getElementById('addPairInput').value = '';
+  openModal('addPairModal');
+  setTimeout(() => document.getElementById('addPairInput').focus(), 100);
+}
+
+function confirmAddPair() {
+  const name = document.getElementById('addPairInput').value.trim().toUpperCase();
+  if (!name) return;
+  if (pairs.includes(name)) { alert(`El par ${name} ya existe.`); return; }
+  pairs.push(name);
+  currentPair = name;
+  if (!pairData[name]) pairData[name] = {};
+  pairData[name]._tfs = [...TF_DEFAULT];
+  saveState();
+  renderPairsBar();
+  renderPairContent();
+  closeModal('addPairModal');
+}
+
+// =============================================
+//  TF CONFIG
+// =============================================
+function openTfConfig(pair) {
+  currentPair = pair;
+  document.getElementById('tfConfigPairName').textContent = pair;
+  renderTfConfigModal(pair);
+  openModal('tfConfigModal');
+}
+
+function renderTfConfigModal(pair) {
+  const active = getActiveTfs(pair);
+
+  // Active tags
+  document.getElementById('tfActiveList').innerHTML = active.length
+    ? active.map(id => {
+        const t = getTfInfo(id);
+        return `<span class="tf-active-tag ${t.cls}">
+          ${id}
+          <span class="rm" onclick="removeTf('${pair}','${id}')">✕</span>
+        </span>`;
+      }).join('')
+    : `<span style="font-size:10px;color:#2a3a4a;">Sin timeframes — añade uno abajo</span>`;
+
+  // Catalog grid
+  document.getElementById('tfCatalogGrid').innerHTML = Object.keys(TF_CATALOG).map(id => {
+    const already = active.includes(id);
+    return `<button class="tf-cat-btn${already ? ' already' : ''}" onclick="addTf('${pair}','${id}')">${id} · ${TF_CATALOG[id].name}</button>`;
+  }).join('');
+}
+
+function addTf(pair, id) {
+  const tfs = getActiveTfs(pair);
+  if (!tfs.includes(id)) { tfs.push(id); saveState(); }
+  renderTfConfigModal(pair);
+  renderPairContent();
+}
+
+function removeTf(pair, id) {
+  const tfs = getActiveTfs(pair);
+  const idx = tfs.indexOf(id);
+  if (idx > -1) { tfs.splice(idx, 1); saveState(); }
+  renderTfConfigModal(pair);
+  renderPairContent();
+}
+
+function addCustomTf() {
+  const val = document.getElementById('tfCustomInp').value.trim().toUpperCase();
+  if (!val) return;
+  addTf(currentPair, val);
+  document.getElementById('tfCustomInp').value = '';
+}
+
+function deletePair(pair) {
+  if (!confirm(`¿Eliminar ${pair} y todos sus datos?`)) return;
+  pairs = pairs.filter(p => p !== pair);
+  delete pairData[pair];
+  currentPair = pairs.length > 0 ? pairs[0] : null;
+  saveState();
+  renderPairsBar();
+  renderPairContent();
+}
+
+// =============================================
+//  MODAL HELPERS
+// =============================================
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// Close detail with Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('detailOverlay').classList.contains('open')) closeDetail();
+  }
+});
+
+// =============================================
+//  CHECKLIST
+// =============================================
+const CL_TOTAL = 8;
+function toggle(el) { el.classList.toggle('tapped'); updateProgress(); }
+function updateProgress() {
+  const checked = document.querySelectorAll('#sec-checklist .cell.tapped').length;
+  document.getElementById('progressFill').style.width = Math.round((checked/CL_TOTAL)*100) + '%';
+  document.getElementById('countText').textContent = checked + '/' + CL_TOTAL;
+  const pill = document.getElementById('statusPill');
+  if (checked === CL_TOTAL) { pill.className='status-pill status-go'; pill.textContent='✓ Ejecutar'; }
+  else if (checked >= 4)    { pill.className='status-pill status-warn'; pill.textContent='Validando...'; }
+  else                      { pill.className='status-pill status-pending'; pill.textContent='En proceso'; }
+}
+function resetAll() {
+  document.querySelectorAll('#sec-checklist .cell.tapped').forEach(el => el.classList.remove('tapped'));
   updateProgress();
 }
 
-function updateProgress() {
-  const checked = document.querySelectorAll('.cell.tapped').length;
-  const pct = Math.round((checked / TOTAL) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('countText').textContent = checked + '/' + TOTAL;
-  const pill = document.getElementById('statusPill');
-  if (checked === TOTAL) {
-    pill.className = 'status-pill status-go';
-    pill.textContent = '✓ Ejecutar';
-  } else if (checked >= 4) {
-    pill.className = 'status-pill status-warn';
-    pill.textContent = 'Validando...';
-  } else {
-    pill.className = 'status-pill status-pending';
-    pill.textContent = 'En proceso';
+// =============================================
+//  CHATBOT — Trampa IA
+// =============================================
+const BOT_KEY_STORE = 'trampa_api_key';
+let chatOpen     = false;
+let chatHistory  = [];
+let botThinking  = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('botPanel').classList.toggle('open', chatOpen);
+  if (chatOpen && !localStorage.getItem(BOT_KEY_STORE)) {
+    setTimeout(showApiKeyPrompt, 300);
+  }
+  if (chatOpen) setTimeout(() => document.getElementById('botInput').focus(), 300);
+}
+
+function buildBotContext() {
+  let ctx = 'BITÁCORA SISTEMA TRAMPA — Estado actual:\n\n';
+  if (!pairs.length) return ctx + '(Sin pares cargados aún)\n';
+  for (const pair of pairs) {
+    ctx += `━━ ${pair} ━━\n`;
+    const tfs = getActiveTfs(pair);
+    for (const tfId of tfs) {
+      const tf = getTfInfo(tfId);
+      const d  = getPairTfData(pair, tfId);
+      const bullOn = d.checks.bull.filter(Boolean).length;
+      const bearOn = d.checks.bear.filter(Boolean).length;
+      ctx += `  [${tfId} · ${tf.name}]`;
+      if (d.notes) ctx += `\n    Notas: ${d.notes}`;
+      ctx += `\n    Alcista: ${bullOn}/${CL_ITEMS.length}`;
+      CL_ITEMS.forEach((item, i) => { if (d.checks.bull[i]) ctx += ` · ${item.group}`; });
+      ctx += `\n    Bajista: ${bearOn}/${CL_ITEMS.length}`;
+      CL_ITEMS.forEach((item, i) => { if (d.checks.bear[i]) ctx += ` · ${item.group}`; });
+      ctx += '\n';
+    }
+    ctx += '\n';
+  }
+  return ctx;
+}
+
+async function sendBotMsg() {
+  if (botThinking) return;
+  const input  = document.getElementById('botInput');
+  const sendBtn = document.getElementById('botSendBtn');
+  const msg    = input.value.trim();
+  if (!msg) return;
+
+  const apiKey = localStorage.getItem(BOT_KEY_STORE);
+  if (!apiKey) { showApiKeyPrompt(); return; }
+
+  input.value = '';
+  removeBotEmpty();
+  appendBotMsg('user', msg);
+
+  botThinking = true;
+  sendBtn.disabled = true;
+  const typingEl = appendBotMsg('ai', '...', true);
+
+  const systemPrompt =
+`Eres un asistente de trading experto en el Sistema Trampa (método de análisis fractal multi-temporalidad).
+El trader usa este sistema para analizar pares de divisas y detectar trampas de liquidez.
+Responde en español, de forma concisa y directa. Usa los datos para dar respuestas específicas.
+Cuando analices un par, considera la confluencia de temporalidades: las altas mandan sobre las bajas.
+El checklist fractal tiene 7 ítems: señal, zonas, sesgo, posición, trampa1, trampa2, trampa3.
+
+${buildBotContext()}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        system: systemPrompt,
+        messages: [
+          ...chatHistory,
+          { role: 'user', content: msg }
+        ]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      typingEl.textContent = `⚠ Error ${res.status}: ${err.error?.message || 'Revisa tu API key (⚙)'}`;
+      typingEl.classList.remove('typing');
+    } else {
+      const data  = await res.json();
+      const reply = data.content[0].text;
+      typingEl.textContent = reply;
+      typingEl.classList.remove('typing');
+      chatHistory.push({ role: 'user', content: msg });
+      chatHistory.push({ role: 'assistant', content: reply });
+      if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+    }
+  } catch(e) {
+    typingEl.textContent = `⚠ Sin conexión: ${e.message}`;
+    typingEl.classList.remove('typing');
+  }
+
+  botThinking = false;
+  sendBtn.disabled = false;
+  scrollBotMessages();
+  input.focus();
+}
+
+function appendBotMsg(role, text, isTyping) {
+  const msgs = document.getElementById('botMessages');
+  const div  = document.createElement('div');
+  div.className = role === 'user' ? 'bot-msg-user' : ('bot-msg-ai' + (isTyping ? ' typing' : ''));
+  div.textContent = text;
+  msgs.appendChild(div);
+  scrollBotMessages();
+  return div;
+}
+
+function scrollBotMessages() {
+  const el = document.getElementById('botMessages');
+  el.scrollTop = el.scrollHeight;
+}
+
+function removeBotEmpty() {
+  const el = document.querySelector('#botMessages .bot-empty');
+  if (el) el.remove();
+}
+
+function showApiKeyPrompt() {
+  const key = prompt(
+    '✦ TRAMPA IA\n\nPega tu API key de Anthropic.\nSe guarda solo en este navegador, nunca en el código.\n\n(obtenla en console.anthropic.com → API Keys)'
+  );
+  if (key && key.startsWith('sk-')) {
+    localStorage.setItem(BOT_KEY_STORE, key.trim());
+  } else if (key !== null) {
+    alert('Clave no válida. Debe empezar por sk-');
   }
 }
 
-function resetAll() {
-  document.querySelectorAll('.cell.tapped').forEach(el => el.classList.remove('tapped'));
-  updateProgress();
+function openApiKeyPrompt() {
+  const current = localStorage.getItem(BOT_KEY_STORE) || '';
+  const masked  = current ? current.slice(0,10) + '••••••••••' + current.slice(-4) : '(no configurada)';
+  const key = prompt(`API key actual: ${masked}\n\nPega la nueva clave para cambiarla.\n(deja vacío para borrarla)`, '');
+  if (key === null) return;
+  if (!key) { localStorage.removeItem(BOT_KEY_STORE); return; }
+  if (key.startsWith('sk-')) { localStorage.setItem(BOT_KEY_STORE, key.trim()); alert('✓ API key guardada'); }
+  else alert('Clave no válida. Debe empezar por sk-');
 }
+
+// =============================================
+//  INIT
+// =============================================
+renderPairsBar();
+renderPairContent();
 </script>
 </body>
 </html>
