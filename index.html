@@ -1274,9 +1274,6 @@ let botThinking  = false;
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('botPanel').classList.toggle('open', chatOpen);
-  if (chatOpen && !localStorage.getItem(BOT_KEY_STORE)) {
-    setTimeout(showApiKeyPrompt, 300);
-  }
   if (chatOpen) setTimeout(() => document.getElementById('botInput').focus(), 300);
 }
 
@@ -1311,9 +1308,6 @@ async function sendBotMsg() {
   const msg    = input.value.trim();
   if (!msg) return;
 
-  const apiKey = localStorage.getItem(BOT_KEY_STORE);
-  if (!apiKey) { showApiKeyPrompt(); return; }
-
   input.value = '';
   removeBotEmpty();
   appendBotMsg('user', msg);
@@ -1332,14 +1326,9 @@ El checklist fractal tiene 7 ítems: señal, zonas, sesgo, posición, trampa1, t
 ${buildBotContext()}`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://trampa-api.lams1801.workers.dev', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 1024,
