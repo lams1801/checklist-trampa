@@ -406,6 +406,32 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .btn-reload:hover{background:rgba(201,168,76,0.18);color:#c9a84c;}
 
 .senales-loading{text-align:center;padding:40px;font-size:11px;color:#3a4a5a;letter-spacing:1px;}
+
+/* ===== BITÁCORA AUTO-FEED ===== */
+.bita-top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 0;max-width:700px;margin:0 auto;}
+.bita-filter-bar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;flex:1;}
+.bita-filter-bar::-webkit-scrollbar{display:none;}
+.bita-feed{display:flex;flex-direction:column;gap:14px;padding:12px 12px 100px;max-width:700px;margin:0 auto;}
+
+.bita-card{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;transition:border-color 0.2s;}
+.bita-card.bull{border-left:3px solid rgba(76,175,80,0.5);}
+.bita-card.bear{border-left:3px solid rgba(239,83,80,0.5);}
+.bita-card:hover{border-color:rgba(201,168,76,0.25);}
+
+.bita-card-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;}
+.bita-card-left{display:flex;align-items:center;gap:8px;}
+.bita-dir{font-size:15px;flex-shrink:0;}
+.bita-symbol{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:#f0ead6;letter-spacing:1.5px;}
+.bita-tf{font-size:9px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:1px;font-family:'Cinzel',serif;}
+.bita-card-right{text-align:right;}
+.bita-time{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;}
+.bita-patron{font-size:10px;color:#7a8a6a;margin-top:2px;letter-spacing:0.5px;}
+
+.bita-img-wrap{margin:0 14px 10px;border-radius:9px;overflow:hidden;background:#050a10;min-height:60px;display:flex;align-items:center;justify-content:center;}
+.bita-img-wrap img{width:100%;display:block;border-radius:9px;}
+.bita-img-loading{font-size:10px;color:#2a3a4a;padding:20px;text-align:center;}
+
+.bita-caption{margin:0 14px 12px;font-size:10px;color:#6a7a8a;line-height:1.6;padding:8px 10px;background:rgba(0,0,0,0.2);border-radius:7px;border-left:2px solid rgba(201,168,76,0.15);}
 </style>
 </head>
 <body>
@@ -415,8 +441,7 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
   <div class="top-nav-inner">
     <div class="app-logo">SISTEMA <em>TRAMPA</em></div>
     <div class="main-tabs">
-      <button class="main-tab active" onclick="switchSection('bitacora',this)">Bitácora</button>
-      <button class="main-tab" onclick="switchSection('checklist',this)">Checklist</button>
+      <button class="main-tab active" onclick="switchSection('bitacora',this);loadBitacora()">Bitácora</button>
       <button class="main-tab" onclick="switchSection('senales',this);loadSignals()">Señales</button>
     </div>
   </div>
@@ -424,10 +449,19 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 
 <!-- ===== BITÁCORA ===== -->
 <section id="sec-bitacora" class="section active">
-  <div class="pairs-bar" id="pairsBar">
-    <button class="btn-add-pair" onclick="openAddPair()">＋</button>
+  <div class="bita-top">
+    <div class="bita-filter-bar" id="bitaFilterBar">
+      <button class="sfilter active" onclick="filterBitacora('ALL',this)">Todas</button>
+    </div>
+    <button class="btn-reload" onclick="loadBitacora()" style="margin-right:12px;flex-shrink:0;">↻</button>
   </div>
-  <div id="pairContent"></div>
+  <div id="bitaFeed" class="bita-feed">
+    <div class="senales-empty">
+      <div class="senales-empty-icon">📸</div>
+      <div class="senales-empty-title">Bitácora vacía</div>
+      <div class="senales-empty-sub">Cuando el EA detecte una trampa enviará el gráfico aquí automáticamente</div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== CHECKLIST ===== -->
@@ -725,12 +759,8 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
   </div>
 </div>
 
-<!-- ===== BOTTOM BAR ===== -->
-<div class="bottom-bar hidden" id="bottomBar">
-  <div class="progress-text">Completado: <span id="countText">0/8</span></div>
-  <div class="status-pill status-pending" id="statusPill">En proceso</div>
-  <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
-</div>
+<!-- BOTTOM BAR oculto — era del checklist -->
+<div class="bottom-bar hidden" id="bottomBar" style="display:none!important;"></div>
 
 <script>
 // =============================================
@@ -824,7 +854,6 @@ function switchSection(sec, tabEl) {
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('sec-' + sec).classList.add('active');
   tabEl.classList.add('active');
-  document.getElementById('bottomBar').classList.toggle('hidden', sec !== 'checklist');
   window.scrollTo(0, 0);
 }
 
@@ -1555,9 +1584,111 @@ function toggleMic() {
 }
 
 // =============================================
-//  SEÑALES EA
+//  BITÁCORA AUTO-FEED
 // =============================================
 const WORKER = 'https://trampa-api.lams1801.workers.dev';
+
+let allBitaEntries   = [];
+let activeBitaSymbol = 'ALL';
+
+async function loadBitacora() {
+  const feed = document.getElementById('bitaFeed');
+  if (!feed) return;
+  feed.innerHTML = '<div class="senales-loading">↻ Cargando bitácora...</div>';
+  try {
+    const res  = await fetch(WORKER + '/bitacora/ALL');
+    const data = await res.json();
+    allBitaEntries = Array.isArray(data) ? data : [];
+    buildBitaFilters();
+    renderBitacora();
+  } catch(e) {
+    feed.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">⚠️</div><div class="senales-empty-title">Error al conectar</div><div class="senales-empty-sub">Comprueba que el worker está activo</div><button class="btn-reload" onclick="loadBitacora()">↻ Reintentar</button></div>';
+  }
+}
+
+function buildBitaFilters() {
+  const bar = document.getElementById('bitaFilterBar');
+  if (!bar) return;
+  const symbols = [...new Set(allBitaEntries.map(e => e.symbol))].sort();
+  let html = '<button class="sfilter' + (activeBitaSymbol==='ALL'?' active':'') + '" onclick="filterBitacora(\'ALL\',this)">Todas</button>';
+  symbols.forEach(s => {
+    html += '<button class="sfilter' + (activeBitaSymbol===s?' active':'') + '" onclick="filterBitacora(\'' + s + '\',this)">' + s + '</button>';
+  });
+  bar.innerHTML = html;
+}
+
+function filterBitacora(symbol, btn) {
+  activeBitaSymbol = symbol;
+  document.querySelectorAll('#bitaFilterBar .sfilter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBitacora();
+}
+
+function renderBitacora() {
+  const feed = document.getElementById('bitaFeed');
+  if (!feed) return;
+  const entries = activeBitaSymbol === 'ALL'
+    ? allBitaEntries
+    : allBitaEntries.filter(e => e.symbol === activeBitaSymbol);
+
+  if (!entries.length) {
+    feed.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">📸</div><div class="senales-empty-title">Sin entradas</div><div class="senales-empty-sub">Cuando el EA detecte una trampa enviará el gráfico aquí automáticamente</div></div>';
+    return;
+  }
+  feed.innerHTML = entries.map(e => renderBitaCard(e)).join('');
+  // Cargar imágenes de forma lazy
+  entries.forEach(e => { if (e.hasImage) loadBitaImage(e.id); });
+}
+
+function renderBitaCard(e) {
+  const tfMap = {Y:'tf-y',MN:'tf-mn',W1:'tf-w1',D1:'tf-d1',H12:'tf-h12',H8:'tf-h8',H4:'tf-h4',H2:'tf-h2',H1:'tf-h1',M30:'tf-m30',M15:'tf-m15',M5:'tf-m5',M15:'tf-m15',M5:'tf-m5'};
+  const tfClass = tfMap[(e.tf||'').toUpperCase()] || 'tf-custom';
+  const cap  = e.caption || '';
+  const isBull = /alcista/i.test(cap);
+  const isBear = /bajista/i.test(cap);
+  const dirClass = isBull ? 'bull' : (isBear ? 'bear' : '');
+  const dirEmoji = isBull ? '🟢' : (isBear ? '🔴' : '⚪');
+
+  const ts = e.timestamp ? new Date(e.timestamp.replace(' ','T')).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+
+  const imgSection = e.hasImage
+    ? `<div class="bita-img-wrap" id="imgwrap_${e.id}"><div class="bita-img-loading">Cargando imagen...</div></div>`
+    : '';
+
+  return `
+<div class="bita-card ${dirClass}">
+  <div class="bita-card-header">
+    <div class="bita-card-left">
+      <span class="bita-dir">${dirEmoji}</span>
+      <span class="bita-symbol">${e.symbol||'—'}</span>
+      <span class="bita-tf ${tfClass}">${e.tf||''}</span>
+    </div>
+    <div class="bita-card-right">
+      <div class="bita-time">${ts}</div>
+    </div>
+  </div>
+  ${imgSection}
+  ${cap ? `<div class="bita-caption">${cap}</div>` : ''}
+</div>`;
+}
+
+async function loadBitaImage(id) {
+  const wrap = document.getElementById('imgwrap_' + id);
+  if (!wrap) return;
+  try {
+    const res = await fetch(WORKER + '/image/' + id);
+    if (!res.ok) { wrap.innerHTML = ''; return; }
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    wrap.innerHTML = '<img src="' + url + '" alt="chart" loading="lazy">';
+  } catch(e) {
+    wrap.innerHTML = '';
+  }
+}
+
+// =============================================
+//  SEÑALES EA
+// =============================================
 let allSignals   = [];
 let activeFilter = 'all';
 let signalRefreshTimer = null;
@@ -1689,8 +1820,7 @@ function urlB64ToUint8Array(base64String) {
 // =============================================
 //  INIT
 // =============================================
-renderPairsBar();
-renderPairContent();
+loadBitacora();
 </script>
 </body>
 </html>
