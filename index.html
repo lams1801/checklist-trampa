@@ -1745,20 +1745,13 @@ function renderSignalCard(s) {
   const isBull   = s.dir === 1;
   const dirEmoji = isBull ? '🟢' : '🔴';
   const dirClass = isBull ? 'bull' : 'bear';
-  const zonaLabel = s.tipo === 'ZS' ? 'Soporte' : 'Resistencia';
-  const zonaClass = s.tipo === 'ZS' ? 'zs' : 'zr';
+  const zonaLabel = s.tipoZona === 'ZS' ? 'Soporte' : 'Resistencia';
+  const zonaClass = s.tipoZona === 'ZS' ? 'zs' : 'zr';
   const fechaStr  = s.receivedAt ? new Date(s.receivedAt).toLocaleString('es-ES', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
 
   // Tf badge class
   const tfMap = {Y:'tf-y',MN:'tf-mn',W1:'tf-w1',D1:'tf-d1',H12:'tf-h12',H8:'tf-h8',H4:'tf-h4',H2:'tf-h2',H1:'tf-h1',M30:'tf-m30',M15:'tf-m15',M5:'tf-m5'};
   const tfClass = tfMap[(s.tf||'').toUpperCase()] || 'tf-custom';
-
-  // Analysis (short)
-  let analysisHtml = '';
-  if (s.analysis) {
-    const lines = s.analysis.trim().split('\n').slice(0,3).join('\n');
-    analysisHtml = `<div class="signal-analysis"><div class="signal-analysis-text">${lines}</div></div>`;
-  }
 
   return `
 <div class="signal-card ${dirClass}">
@@ -1780,7 +1773,6 @@ function renderSignalCard(s) {
       <span class="signal-zona-range">${s.zonaTop||''} – ${s.zonaBottom||''}</span>
     </div>
     <div class="signal-precio-row">Precio: <span class="signal-precio-val">${s.precio||''}</span>${s.confluencia ? ' · Conf: '+s.confluencia : ''}</div>
-    ${analysisHtml}
   </div>
 </div>`;
 }
