@@ -380,7 +380,9 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .signal-dir{font-size:16px;flex-shrink:0;}
 .signal-symbol{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:#f0ead6;letter-spacing:1px;}
 .signal-tf{font-size:9px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:1px;font-family:'Cinzel',serif;}
-.signal-card-right{text-align:right;}
+.signal-card-right{text-align:right;display:flex;align-items:center;gap:8px;}
+.signal-delete{background:none;border:none;color:rgba(255,255,255,0.25);font-size:16px;cursor:pointer;padding:2px 6px;border-radius:6px;line-height:1;transition:color 0.15s,background 0.15s;}
+.signal-delete:hover{color:#ef5350;background:rgba(239,83,80,0.12);}
 .signal-time{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;}
 .signal-patron{font-size:10px;color:#6a7a8a;margin-top:2px;}
 
@@ -423,7 +425,9 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .bita-dir{font-size:15px;flex-shrink:0;}
 .bita-symbol{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:#f0ead6;letter-spacing:1.5px;}
 .bita-tf{font-size:9px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:1px;font-family:'Cinzel',serif;}
-.bita-card-right{text-align:right;}
+.bita-card-right{text-align:right;display:flex;align-items:center;gap:8px;}
+.bita-delete{background:none;border:none;color:rgba(255,255,255,0.25);font-size:16px;cursor:pointer;padding:2px 6px;border-radius:6px;line-height:1;transition:color 0.15s,background 0.15s;}
+.bita-delete:hover{color:#ef5350;background:rgba(239,83,80,0.12);}
 .bita-time{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;}
 .bita-patron{font-size:10px;color:#7a8a6a;margin-top:2px;letter-spacing:0.5px;}
 
@@ -1665,11 +1669,20 @@ function renderBitaCard(e) {
     </div>
     <div class="bita-card-right">
       <div class="bita-time">${ts}</div>
+      <button class="bita-delete" onclick="deleteBitaEntry('${e.id}')" title="Borrar">✕</button>
     </div>
   </div>
   ${imgSection}
   ${cap ? `<div class="bita-caption">${cap}</div>` : ''}
 </div>`;
+}
+
+async function deleteBitaEntry(id) {
+  try {
+    await fetch(WORKER + '/bitacora/' + id, { method: 'DELETE' });
+  } catch(e) {}
+  allBitaEntries = allBitaEntries.filter(e => e.id !== id);
+  renderBitacora();
 }
 
 async function loadBitaImage(id) {
@@ -1705,6 +1718,11 @@ async function loadSignals() {
   } catch (e) {
     list.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">⚠️</div><div class="senales-empty-title">Error al conectar</div><div class="senales-empty-sub">Comprueba que el worker está activo</div><button class="btn-reload" onclick="loadSignals()">↻ Reintentar</button></div>';
   }
+}
+
+function deleteSignal(id) {
+  allSignals = allSignals.filter(s => s.id !== id);
+  renderSignals();
 }
 
 function renderSignals() {
@@ -1753,6 +1771,7 @@ function renderSignalCard(s) {
     <div class="signal-card-right">
       <div class="signal-time">${fechaStr}</div>
       <div class="signal-patron">${s.patron||''}</div>
+      <button class="signal-delete" onclick="deleteSignal('${s.id}')" title="Cerrar">✕</button>
     </div>
   </div>
   <div class="signal-card-body">
