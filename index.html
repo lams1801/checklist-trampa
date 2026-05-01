@@ -16,8 +16,6 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:#0d1117;}
 body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
-
-/* ===== TOP NAV ===== */
 .top-nav{position:sticky;top:0;z-index:200;background:#0d1117;border-bottom:1px solid rgba(255,255,255,0.06);}
 .top-nav::before{content:'';display:block;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);}
 .top-nav-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:10px;}
@@ -27,12 +25,8 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .main-tab{padding:6px 14px;border-radius:8px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:1px solid transparent;transition:all 0.2s;color:#4a5a6a;background:none;font-family:'DM Sans',sans-serif;}
 .main-tab.active{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
 .main-tab:hover:not(.active){color:#8a9ab0;}
-
-/* ===== SECTIONS ===== */
 .section{display:none;}
 .section.active{display:block;}
-
-/* ===== PAIRS BAR ===== */
 .pairs-bar{background:#080d12;border-bottom:1px solid rgba(255,255,255,0.05);padding:8px 12px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .pairs-bar::-webkit-scrollbar{display:none;}
 .pair-tab{padding:6px 14px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1.5px;border:1px solid rgba(255,255,255,0.08);color:#4a5a6a;white-space:nowrap;transition:all 0.15s;flex-shrink:0;background:none;font-family:'DM Sans',sans-serif;}
@@ -40,27 +34,19 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .pair-tab:hover:not(.active){color:#8a9ab0;border-color:rgba(255,255,255,0.15);}
 .btn-add-pair{padding:5px 11px;border-radius:6px;cursor:pointer;font-size:16px;font-weight:300;border:1px dashed rgba(201,168,76,0.25);color:#5a4a2a;flex-shrink:0;background:transparent;transition:all 0.15s;line-height:1;}
 .btn-add-pair:hover{border-color:rgba(201,168,76,0.5);color:#c9a84c;}
-
-/* ===== EMPTY STATE ===== */
 .empty-state{text-align:center;padding:60px 20px;}
 .empty-icon{font-size:36px;margin-bottom:14px;opacity:0.4;}
 .empty-title{font-family:'Cinzel',serif;font-size:14px;color:#4a5a6a;margin-bottom:8px;letter-spacing:1px;}
 .empty-sub{font-size:11px;color:#3a4a5a;line-height:1.7;}
 .btn-empty{display:inline-block;margin-top:18px;padding:10px 24px;border-radius:8px;cursor:pointer;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#c9a84c;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;}
-
-/* ===== PAIR CONTENT ===== */
 .pair-content-wrap{padding:12px 12px 80px;max-width:900px;margin:0 auto;}
 .pair-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:2px 2px;}
 .pair-title{font-family:'Cinzel',serif;font-size:19px;font-weight:700;color:#f0ead6;letter-spacing:2px;}
 .pair-title small{font-size:8px;color:#3a4a5a;letter-spacing:1px;margin-left:8px;font-family:'DM Sans',sans-serif;font-weight:300;}
 .btn-del{padding:5px 12px;border-radius:6px;cursor:pointer;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:rgba(239,83,80,0.15);border:1px solid rgba(239,83,80,0.4);color:#ef7070;transition:all 0.15s;font-family:'DM Sans',sans-serif;font-weight:500;}
 .btn-del:hover{background:rgba(239,83,80,0.28);color:#ff9090;border-color:rgba(239,83,80,0.7);}
-
-/* ===== TF GRID ===== */
 .tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(min-width:700px){.tf-grid{grid-template-columns:repeat(4,1fr);}}
-
-/* ===== TF BADGE COLORS — catálogo completo ===== */
 .tf-y  {background:rgba(255,210,80,0.12); border:1px solid rgba(255,210,80,0.3); color:#ffd250;}
 .tf-6m {background:rgba(255,150,80,0.1);  border:1px solid rgba(255,150,80,0.25);color:#ff9650;}
 .tf-3m {background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.2);color:#ff6464;}
@@ -76,8 +62,6 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .tf-m15{background:rgba(220,120,200,0.1); border:1px solid rgba(220,120,200,0.2);color:#dc78c8;}
 .tf-m5 {background:rgba(255,120,160,0.1); border:1px solid rgba(255,120,160,0.2);color:#ff78a0;}
 .tf-custom{background:rgba(160,160,160,0.1);border:1px solid rgba(160,160,160,0.2);color:#a0a0a0;}
-
-/* ===== TF CONFIG MODAL ===== */
 .modal-wide{max-width:420px!important;}
 .tf-cfg-section{margin-bottom:14px;}
 .tf-cfg-label{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#6a8a9a;margin-bottom:8px;}
@@ -93,52 +77,32 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .tf-custom-inp{flex:1;padding:8px 10px;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);color:#f0ead6;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;outline:none;}
 .tf-custom-inp:focus{border-color:rgba(201,168,76,0.4);}
 .tf-custom-inp::placeholder{text-transform:none;letter-spacing:0;color:#2a3a4a;font-size:11px;}
-
-/* ===== TF CARD ===== */
 .tf-card-h{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;}
 .tf-card-h:hover{border-color:rgba(201,168,76,0.35);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.4);}
 .tf-card-h:active{transform:scale(0.97);}
-
 .tf-card-h-top{display:flex;align-items:center;gap:10px;padding:14px 14px 11px;}
 .tf-badge{font-family:'Cinzel',serif;font-size:13px;font-weight:700;padding:5px 12px;border-radius:6px;letter-spacing:1px;flex-shrink:0;}
-.tf-mn{background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;}
-.tf-w1{background:rgba(100,150,210,0.1);border:1px solid rgba(100,150,210,0.2);color:#6090c8;}
-.tf-d1{background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.2);color:#5cb870;}
-.tf-h4{background:rgba(180,100,210,0.1);border:1px solid rgba(180,100,210,0.2);color:#b870d8;}
 .tf-card-name{font-size:12px;font-weight:400;color:#b8c8d8;letter-spacing:0.5px;}
-
-/* Thumbnail */
 .tf-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#06090e;overflow:hidden;}
 .tf-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .tf-thumb-empty{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
 .tf-thumb-icon{font-size:36px;opacity:0.12;}
 .tf-thumb-hint{font-size:11px;color:#2a3a4a;text-align:center;line-height:1.6;}
-/* Has-image overlay on hover */
 .tf-thumb .zoom-hint{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background 0.2s;opacity:0;}
 .tf-card-h:hover .tf-thumb .zoom-hint{background:rgba(0,0,0,0.35);opacity:1;}
 .zoom-hint-icon{font-size:22px;}
-
-/* Notes preview */
 .tf-notes-preview{padding:10px 14px 14px;font-size:12px;color:#5a6a7a;line-height:1.6;min-height:50px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .tf-notes-preview.has-notes{color:#7aaa90;}
-
-/* Has image indicator */
 .tf-card-h.has-img .tf-card-h-top{border-bottom:1px solid rgba(255,255,255,0.04);}
-
-/* ===== TF DETAIL OVERLAY ===== */
 .detail-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.92);backdrop-filter:blur(6px);flex-direction:column;overflow-y:auto;}
 .detail-overlay.open{display:flex;}
-
 .detail-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;position:sticky;top:0;background:#0a0f18;z-index:10;}
 .detail-header-left{display:flex;align-items:center;gap:10px;}
 .detail-pair-label{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:#f0ead6;letter-spacing:1.5px;}
 .detail-tf-label{font-size:10px;color:#8a9ab0;letter-spacing:1px;}
 .btn-close-detail{padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#6a7a8a;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
 .btn-close-detail:hover{background:rgba(255,255,255,0.12);color:#c0c8d8;}
-
 .detail-body{padding:16px;max-width:900px;margin:0 auto;width:100%;}
-
-/* Full image area */
 .detail-img-area{border:1.5px dashed rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;background:#06090e;margin-bottom:12px;position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s;}
 .detail-img-area.has-img{border-style:solid;border-color:rgba(255,255,255,0.06);}
 .detail-img-area img{width:100%;height:auto;display:block;}
@@ -146,7 +110,6 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .detail-ph-icon{font-size:32px;opacity:0.15;margin-bottom:10px;}
 .detail-ph-text{font-size:11px;color:#2a3a4a;line-height:1.7;}
 .detail-file-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-
 .detail-img-btns{display:flex;gap:8px;margin-bottom:14px;}
 .btn-url{flex:1;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:10px;font-weight:400;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#5a6a7a;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
 .btn-url:hover{border-color:rgba(201,168,76,0.3);color:#c9a84c;}
@@ -154,8 +117,6 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .btn-clear-img:hover{background:rgba(239,83,80,0.15);color:#ef5350;}
 .btn-clear-tf{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:10px;background:rgba(239,83,80,0.07);border:1px dashed rgba(239,83,80,0.2);color:#6a3535;transition:all 0.15s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
 .btn-clear-tf:hover{background:rgba(239,83,80,0.15);border-color:rgba(239,83,80,0.5);color:#ef5350;}
-
-/* ===== CHATBOT ===== */
 @keyframes botIdle{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-3px) scale(1.03);}}
 @keyframes botThink{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.4);}50%{box-shadow:0 0 0 10px rgba(201,168,76,0);}}
 @keyframes botListen{0%,100%{box-shadow:0 0 0 0 rgba(239,83,80,0.5);}50%{box-shadow:0 0 0 12px rgba(239,83,80,0);}}
@@ -192,19 +153,13 @@ body{font-family:'DM Sans',sans-serif;color:#c0c8d8;min-height:100vh;}
 .btn-bot-send{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
 .btn-bot-send:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.5);}
 .btn-bot-send:disabled{opacity:0.3;cursor:default;}
-
-/* Detail notes */
 .detail-notes-label{font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#7a8a9a;margin-bottom:6px;}
 textarea.detail-notes{width:100%;border-radius:8px;padding:10px 12px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);color:#b8c8d8;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.7;resize:vertical;min-height:120px;transition:border-color 0.2s;outline:none;}
 textarea.detail-notes:focus{border-color:rgba(201,168,76,0.3);color:#d0dce8;}
 textarea.detail-notes::placeholder{color:#3a4a5a;}
-
-/* Nav between TF inside detail */
 .detail-tf-nav{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .detail-tf-btn{padding:5px 12px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:1px;border:1px solid rgba(255,255,255,0.08);color:#3a4a5a;background:none;font-family:'DM Sans',sans-serif;transition:all 0.15s;}
 .detail-tf-btn.active{color:#f0ead6;border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.06);}
-
-/* ===== MODALS ===== */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:#0f1820;border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:22px;width:100%;max-width:300px;}
@@ -218,8 +173,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .mbtn-cancel{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.09);color:#4a5a6a;}
 .mbtn-ok{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
 .mbtn-ok:hover{background:rgba(201,168,76,0.2);}
-
-/* ===== FRACTAL CHECKLIST (inside detail) ===== */
 .fcl-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px;color:#3a5a4a;font-size:8px;font-weight:500;letter-spacing:2px;text-transform:uppercase;}
 .fcl-divider::before,.fcl-divider::after{content:'';flex:1;height:1px;background:rgba(76,175,80,0.15);}
 .fcl-headers{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px;}
@@ -250,8 +203,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .fcl-exec-item{background:#0d1117;border:1px solid rgba(76,175,80,0.12);border-radius:5px;padding:6px 7px;}
 .fcl-exec-lbl{font-size:7px;text-transform:uppercase;letter-spacing:1px;color:#3a6a3e;margin-bottom:2px;}
 .fcl-exec-val{font-size:9px;color:#7acc80;font-weight:300;}
-
-/* ===== RESUMEN CARD ===== */
 .tf-card-resumen{background:linear-gradient(135deg,#0a1008,#080d15);border:1px solid rgba(201,168,76,0.25);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;grid-column:span 1;}
 .tf-card-resumen:hover{border-color:rgba(201,168,76,0.5);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.1);}
 .tf-card-resumen::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);}
@@ -272,12 +223,8 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .verdict-bull{background:rgba(76,175,80,0.12);border:1px solid rgba(76,175,80,0.3);color:#6cdf80;}
 .verdict-bear{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.25);color:#df7070;}
 .verdict-neutral{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:#c9a84c;}
-
-/* Progress badge on TF cards */
 .tf-progress-badge{position:absolute;top:8px;right:8px;font-size:8px;padding:2px 6px;border-radius:10px;background:rgba(0,0,0,0.5);color:#4a6a5a;font-weight:500;}
 .tf-progress-badge.has-checks{color:#6caf80;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.2);}
-
-/* ===== CHECKLIST ===== */
 .cl-wrap{padding-bottom:80px;}
 .hero{text-align:center;padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;background:#0d1117;}
 .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,#e8d48a,#c9a84c,transparent);}
@@ -334,8 +281,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .footer-cl{margin:10px 0 0;padding:12px;border:1px solid rgba(201,168,76,0.1);border-radius:8px;background:rgba(201,168,76,0.02);text-align:center;}
 .footer-cl-text{font-size:9px;color:#7a6a4a;line-height:1.7;font-style:italic;}
 .footer-cl-text strong{color:#c9a84c;font-style:normal;}
-
-/* ===== BOTTOM BAR ===== */
 .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#0d1117;border-top:1px solid rgba(255,255,255,0.08);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;}
 .bottom-bar.hidden{display:none;}
 .progress-text{font-size:10px;color:#4a5a6a;white-space:nowrap;}
@@ -345,7 +290,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .status-pending{background:rgba(74,90,106,0.2);border:1px solid rgba(74,90,106,0.3);color:#4a5a6a;}
 .status-go{background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);color:#4caf50;}
 .status-warn{background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.4);color:#f5a623;}
-
 @media(min-width:600px){
   .cl-content{padding:0 20px;}
   .cell{padding:11px 12px;min-height:52px;}
@@ -353,28 +297,22 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
   .cb{width:22px;height:22px;}
   .hero-title{font-size:18px;}
 }
-
-/* ===== SEÑALES EA ===== */
 .senales-wrap{padding:12px 12px 100px;max-width:700px;margin:0 auto;}
 .senales-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:2px 2px;}
 .senales-head-title{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:2px;}
 .btn-notif{padding:7px 14px;border-radius:8px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:0.5px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);color:#8a7040;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
 .btn-notif:hover{background:rgba(201,168,76,0.18);color:#c9a84c;border-color:rgba(201,168,76,0.5);}
 .btn-notif.active{background:rgba(76,175,80,0.1);border-color:rgba(76,175,80,0.4);color:#5cb870;}
-
 .senales-filter-bar{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
 .senales-filter-bar::-webkit-scrollbar{display:none;}
 .sfilter{padding:5px 13px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.08);color:#4a5a6a;background:none;white-space:nowrap;transition:all 0.15s;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .sfilter.active{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
 .sfilter:hover:not(.active){color:#8a9ab0;}
-
 .senales-list{display:flex;flex-direction:column;gap:10px;}
-
 .signal-card{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;transition:border-color 0.2s;}
 .signal-card.bull{border-left:3px solid rgba(76,175,80,0.5);}
 .signal-card.bear{border-left:3px solid rgba(239,83,80,0.5);}
 .signal-card:hover{border-color:rgba(201,168,76,0.25);}
-
 .signal-card-top{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;}
 .signal-card-left{display:flex;align-items:center;gap:8px;}
 .signal-dir{font-size:16px;flex-shrink:0;}
@@ -385,7 +323,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .signal-delete:hover{color:#ef5350;background:rgba(239,83,80,0.12);}
 .signal-time{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;}
 .signal-patron{font-size:10px;color:#6a7a8a;margin-top:2px;}
-
 .signal-card-body{padding:0 14px 10px;display:flex;flex-direction:column;gap:6px;}
 .signal-zona-row{display:flex;align-items:center;gap:8px;}
 .signal-zona-badge{font-size:9px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:0.5px;}
@@ -394,32 +331,25 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .signal-zona-range{font-size:10px;color:#6a8a7a;font-weight:300;}
 .signal-precio-row{font-size:10px;color:#5a6a7a;}
 .signal-precio-val{color:#c9a84c;font-weight:500;}
-
 .signal-analysis{margin-top:6px;padding:8px 10px;background:rgba(0,0,0,0.2);border-radius:7px;border-left:2px solid rgba(201,168,76,0.2);}
 .signal-analysis-text{font-size:10px;color:#7a8a9a;line-height:1.6;white-space:pre-wrap;}
 .signal-analysis-more{font-size:9px;color:#3a4a5a;margin-top:4px;cursor:pointer;}
 .signal-analysis-more:hover{color:#c9a84c;}
-
 .senales-empty{text-align:center;padding:60px 20px;}
 .senales-empty-icon{font-size:36px;margin-bottom:14px;opacity:0.35;}
 .senales-empty-title{font-family:'Cinzel',serif;font-size:13px;color:#3a4a5a;margin-bottom:8px;letter-spacing:1px;}
 .senales-empty-sub{font-size:11px;color:#2a3a4a;line-height:1.7;}
 .btn-reload{display:inline-block;margin-top:18px;padding:8px 20px;border-radius:8px;cursor:pointer;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:#7a6030;font-size:11px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .btn-reload:hover{background:rgba(201,168,76,0.18);color:#c9a84c;}
-
 .senales-loading{text-align:center;padding:40px;font-size:11px;color:#3a4a5a;letter-spacing:1px;}
-
-/* ===== BITÁCORA AUTO-FEED ===== */
 .bita-top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 0;max-width:700px;margin:0 auto;}
 .bita-filter-bar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;flex:1;}
 .bita-filter-bar::-webkit-scrollbar{display:none;}
 .bita-feed{display:flex;flex-direction:column;gap:14px;padding:12px 12px 100px;max-width:700px;margin:0 auto;}
-
 .bita-card{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;transition:border-color 0.2s;}
 .bita-card.bull{border-left:3px solid rgba(76,175,80,0.5);}
 .bita-card.bear{border-left:3px solid rgba(239,83,80,0.5);}
 .bita-card:hover{border-color:rgba(201,168,76,0.25);}
-
 .bita-card-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;}
 .bita-card-left{display:flex;align-items:center;gap:8px;}
 .bita-dir{font-size:15px;flex-shrink:0;}
@@ -430,28 +360,66 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
 .bita-delete:hover{color:#ef5350;background:rgba(239,83,80,0.12);}
 .bita-time{font-size:9px;color:#3a4a5a;letter-spacing:0.5px;}
 .bita-patron{font-size:10px;color:#7a8a6a;margin-top:2px;letter-spacing:0.5px;}
-
 .bita-img-wrap{margin:0 14px 10px;border-radius:9px;overflow:hidden;background:#050a10;min-height:60px;display:flex;align-items:center;justify-content:center;}
 .bita-img-wrap img{width:100%;display:block;border-radius:9px;}
 .bita-img-loading{font-size:10px;color:#2a3a4a;padding:20px;text-align:center;}
-
 .bita-caption{margin:0 14px 12px;font-size:10px;color:#6a7a8a;line-height:1.6;padding:8px 10px;background:rgba(0,0,0,0.2);border-radius:7px;border-left:2px solid rgba(201,168,76,0.15);}
+/* ===== CALCULADORA DE LOTAJE ===== */
+.lc-wrap{padding:14px 12px 100px;max-width:540px;margin:0 auto;}
+.lc-head-title{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:2px;margin-bottom:14px;text-align:center;}
+.lc-card{background:#090e15;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px;margin-bottom:10px;}
+.lc-label{display:block;margin:10px 0 5px 0;font-size:9px;color:#6a7a8a;text-transform:uppercase;letter-spacing:1.2px;font-weight:500;font-family:'DM Sans',sans-serif;}
+.lc-input,.lc-select{width:100%;padding:10px 12px;font-size:13px;background:rgba(0,0,0,0.3);color:#f0ead6;border:1px solid rgba(255,255,255,0.1);border-radius:7px;outline:none;font-family:'DM Sans',sans-serif;-webkit-appearance:none;}
+.lc-input:focus,.lc-select:focus{border-color:rgba(201,168,76,0.4);}
+.lc-row{display:flex;gap:8px;}
+.lc-row > div{flex:1;}
+.lc-row.lc-balrow > div:nth-child(1){flex:2;}
+.lc-row.lc-balrow > div:nth-child(2){flex:1;}
+.lc-pricebox{background:rgba(0,0,0,0.25);border:1px dashed rgba(255,255,255,0.1);padding:8px 10px;border-radius:6px;margin-top:6px;font-size:10px;color:#6a7a8a;line-height:1.4;}
+.lc-pricebox strong{color:#c9a84c;}
+.lc-mode{display:flex;gap:4px;background:rgba(0,0,0,0.3);padding:3px;border-radius:7px;margin:10px 0 4px;border:1px solid rgba(255,255,255,0.06);}
+.lc-mode-btn{flex:1;padding:7px;text-align:center;font-size:10px;cursor:pointer;border-radius:5px;color:#4a5a6a;border:none;background:transparent;text-transform:uppercase;letter-spacing:1px;font-family:'DM Sans',sans-serif;font-weight:500;}
+.lc-mode-btn.lc-active{background:rgba(201,168,76,0.12);color:#c9a84c;font-weight:700;border:1px solid rgba(201,168,76,0.25);}
+.lc-btn{width:100%;padding:12px;background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(232,212,138,0.1));color:#c9a84c;border:1px solid rgba(201,168,76,0.4);border-radius:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;cursor:pointer;margin-top:14px;text-transform:uppercase;transition:all 0.15s;}
+.lc-btn:hover{background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.6);}
+.lc-btn-danger{background:rgba(239,83,80,0.1);color:#ef7070;border:1px solid rgba(239,83,80,0.3);font-size:10px;padding:6px 10px;border-radius:5px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;}
+.lc-result{margin-top:14px;padding:14px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);border-radius:8px;}
+.lc-result.lc-hidden{display:none;}
+.lc-rrow{display:flex;justify-content:space-between;padding:6px 0;font-size:10px;color:#6a7a8a;border-bottom:1px solid rgba(255,255,255,0.04);text-transform:uppercase;letter-spacing:0.8px;}
+.lc-rrow:last-child{border-bottom:none;}
+.lc-rrow span:last-child{color:#f0ead6;font-weight:500;text-transform:none;letter-spacing:0;font-size:11px;font-family:'DM Sans',sans-serif;}
+.lc-lots{font-family:'Cinzel',serif;font-weight:700;font-size:34px;color:#e8d48a;text-align:center;padding:14px;margin-top:12px;background:linear-gradient(180deg,rgba(201,168,76,0.10) 0%,rgba(201,168,76,0.03) 100%);border:1px solid rgba(201,168,76,0.3);border-radius:8px;letter-spacing:2px;}
+.lc-lots-label{font-size:9px;color:#6a7a8a;text-align:center;margin-top:5px;text-transform:uppercase;letter-spacing:2px;}
+.lc-warn{background:rgba(239,83,80,0.1);border-left:3px solid rgba(239,83,80,0.5);padding:8px 10px;margin-top:10px;font-size:10px;color:#f0a8a6;border-radius:4px;line-height:1.5;}
+.lc-warn.lc-hidden{display:none;}
+.lc-list{margin-top:10px;max-height:340px;overflow-y:auto;}
+.lc-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);border-radius:5px;margin-bottom:5px;}
+.lc-item-info{flex:1;min-width:0;}
+.lc-item-name{font-weight:700;color:#f0ead6;font-size:12px;}
+.lc-item-val{font-size:9px;color:#6a7a8a;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lc-help-block{margin-top:10px;background:rgba(0,0,0,0.2);padding:10px 12px;border:1px solid rgba(255,255,255,0.05);border-radius:6px;}
+.lc-help-block summary{cursor:pointer;color:#c9a84c;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1px;}
+.lc-help-block p,.lc-help-block ol{font-size:11px;color:#8a9aaa;line-height:1.5;margin:8px 0;}
+.lc-help-block ol{padding-left:18px;}
+.lc-help-block strong{color:#c9a84c;}
+.lc-subtabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;}
+.lc-subtab{padding:5px 13px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.08);color:#4a5a6a;background:none;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
+.lc-subtab.lc-active{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:#c9a84c;}
+.lc-panel{display:none;}
+.lc-panel.lc-active{display:block;}
 </style>
 </head>
 <body>
-
-<!-- ===== TOP NAV ===== -->
 <nav class="top-nav">
   <div class="top-nav-inner">
     <div class="app-logo">SISTEMA <em>TRAMPA</em></div>
     <div class="main-tabs">
       <button class="main-tab active" onclick="switchSection('bitacora',this);loadBitacora()">Bitácora</button>
       <button class="main-tab" onclick="switchSection('senales',this);loadSignals()">Señales</button>
+      <button class="main-tab" onclick="switchSection('calculadora',this)">Calc</button>
     </div>
   </div>
 </nav>
-
-<!-- ===== BITÁCORA ===== -->
 <section id="sec-bitacora" class="section active">
   <div class="bita-top">
     <div class="bita-filter-bar" id="bitaFilterBar">
@@ -467,8 +435,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     </div>
   </div>
 </section>
-
-<!-- ===== CHECKLIST ===== -->
 <section id="sec-checklist" class="section">
   <div class="cl-wrap">
     <div class="hero">
@@ -598,8 +564,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     </div>
   </div>
 </section>
-
-<!-- ===== TF DETAIL OVERLAY ===== -->
 <div class="detail-overlay" id="detailOverlay">
   <div class="detail-header">
     <div class="detail-header-left">
@@ -612,9 +576,7 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     <button class="btn-close-detail" onclick="closeDetail()">✕ Cerrar</button>
   </div>
   <div class="detail-body">
-    <!-- TF switcher inside detail -->
     <div class="detail-tf-nav" id="detailTfNav"></div>
-    <!-- Image -->
     <div class="detail-img-area" id="detailImgArea">
       <div class="detail-img-placeholder" id="detailImgPlaceholder">
         <div class="detail-ph-icon">🖼</div>
@@ -622,19 +584,15 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
       </div>
       <input type="file" accept="image/*" class="detail-file-input" id="detailFileInput" onchange="handleDetailFileUpload(event)">
     </div>
-    <!-- Image buttons -->
     <div class="detail-img-btns">
       <button class="btn-url" onclick="openUrlModal()">🔗 Pegar URL de TradingView</button>
       <button class="btn-clear-img" id="detailClearBtn" style="display:none" onclick="clearDetailImg()">✕ Quitar</button>
       <button class="btn-clear-tf" onclick="clearDetailTf()">🗑 Limpiar TF</button>
     </div>
-    <!-- Notes -->
     <div class="detail-notes-label">Análisis · Notas · Contexto</div>
     <textarea class="detail-notes" id="detailNotes"
       placeholder="De dónde viene el precio · zonas clave · sesgo · dirección proyectada · touch downs identificados..."
       oninput="saveDetailNotes(this.value)"></textarea>
-
-    <!-- Fractal Checklist -->
     <div class="fcl-divider">
       <span>CHECKLIST FRACTAL</span>
     </div>
@@ -645,22 +603,17 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     <div id="detailChecklist"></div>
   </div>
 </div>
-
-<!-- ===== MODAL: CONFIGURAR TIMEFRAMES ===== -->
 <div class="modal-overlay" id="tfConfigModal">
   <div class="modal modal-wide">
     <div class="modal-title">⚙ TIMEFRAMES · <span id="tfConfigPairName" style="color:#f0ead6;"></span></div>
-
     <div class="tf-cfg-section">
       <div class="tf-cfg-label">Activos — toca ✕ para quitar</div>
       <div class="tf-active-list" id="tfActiveList"></div>
     </div>
-
     <div class="tf-cfg-section">
       <div class="tf-cfg-label">Añadir del catálogo</div>
       <div class="tf-catalog-grid" id="tfCatalogGrid"></div>
     </div>
-
     <div class="tf-cfg-section">
       <div class="tf-cfg-label">Personalizado</div>
       <div class="tf-custom-row">
@@ -670,12 +623,9 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
         <button class="mbtn mbtn-ok" style="flex:0;padding:8px 14px;" onclick="addCustomTf()">＋</button>
       </div>
     </div>
-
     <button class="mbtn mbtn-ok" style="width:100%;margin-top:4px;" onclick="closeModal('tfConfigModal')">✓ Listo</button>
   </div>
 </div>
-
-<!-- ===== MODAL: AÑADIR PAR ===== -->
 <div class="modal-overlay" id="addPairModal">
   <div class="modal">
     <div class="modal-title">✦ AÑADIR PAR</div>
@@ -688,8 +638,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     </div>
   </div>
 </div>
-
-<!-- ===== MODAL: URL ===== -->
 <div class="modal-overlay" id="urlModal">
   <div class="modal">
     <div class="modal-title" id="urlModalTitle">✦ URL DE IMAGEN</div>
@@ -705,16 +653,12 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     </div>
   </div>
 </div>
-
-<!-- ===== SEÑALES EA ===== -->
 <section id="sec-senales" class="section">
   <div class="senales-wrap">
-
     <div class="senales-top">
       <div class="senales-head-title">✦ SEÑALES EA</div>
       <button class="btn-notif" id="btnNotif" onclick="toggleNotif()">🔔 Activar alertas</button>
     </div>
-
     <div class="senales-filter-bar" id="senalesFilterBar">
       <button class="sfilter active" onclick="filterSignals('all',this)">Todas</button>
       <button class="sfilter" onclick="filterSignals('ZS',this)">Soporte</button>
@@ -722,7 +666,6 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
       <button class="sfilter" onclick="filterSignals('alcista',this)">🟢 Alcista</button>
       <button class="sfilter" onclick="filterSignals('bajista',this)">🔴 Bajista</button>
     </div>
-
     <div id="senalesList" class="senales-list">
       <div class="senales-empty">
         <div class="senales-empty-icon">📡</div>
@@ -731,11 +674,117 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
         <button class="btn-reload" onclick="loadSignals()">↻ Actualizar</button>
       </div>
     </div>
-
   </div>
 </section>
-
-<!-- ===== CHATBOT ===== -->
+<!-- ===== CALCULADORA DE LOTAJE ===== -->
+<section id="sec-calculadora" class="section">
+  <div class="lc-wrap">
+    <div class="lc-head-title">✦ CALCULADORA DE LOTAJE</div>
+    <div class="lc-subtabs">
+      <button class="lc-subtab lc-active" onclick="lcSwitchTab('calc',this)">Calcular</button>
+      <button class="lc-subtab" onclick="lcSwitchTab('inst',this)">Instrumentos</button>
+      <button class="lc-subtab" onclick="lcSwitchTab('help',this)">Ayuda</button>
+    </div>
+    <div class="lc-card lc-panel lc-active" id="lc-panel-calc">
+      <label class="lc-label">Saldo de la cuenta</label>
+      <div class="lc-row lc-balrow">
+        <div><input type="number" class="lc-input" id="lcBalance" value="1000" inputmode="decimal"></div>
+        <div>
+          <select class="lc-select" id="lcCcy"><option>USD</option><option>EUR</option><option>GBP</option></select>
+        </div>
+      </div>
+      <label class="lc-label">Riesgo (%)</label>
+      <input type="number" class="lc-input" id="lcRisk" step="0.1" value="1" inputmode="decimal">
+      <label class="lc-label">Instrumento</label>
+      <select class="lc-select" id="lcInst" onchange="lcOnInstChange()"></select>
+      <div class="lc-pricebox" id="lcPricebox">Selecciona un instrumento.</div>
+      <div class="lc-mode">
+        <button type="button" class="lc-mode-btn lc-active" data-mode="price" onclick="lcSetMode('price')">Por precio</button>
+        <button type="button" class="lc-mode-btn" data-mode="points" onclick="lcSetMode('points')">Por puntos</button>
+      </div>
+      <div id="lcModePrice">
+        <div class="lc-row" style="margin-top:8px">
+          <div>
+            <label class="lc-label">Precio entrada</label>
+            <input type="number" class="lc-input" id="lcEntryPrice" step="0.00001" inputmode="decimal" placeholder="234.5678">
+          </div>
+          <div>
+            <label class="lc-label">Precio del SL</label>
+            <input type="number" class="lc-input" id="lcSlPrice" step="0.00001" inputmode="decimal" placeholder="234.4678">
+          </div>
+        </div>
+      </div>
+      <div id="lcModePoints" style="display:none">
+        <label class="lc-label">SL en puntos</label>
+        <input type="number" class="lc-input" id="lcSl" value="200" inputmode="decimal">
+      </div>
+      <button class="lc-btn" onclick="lcCalc()">Calcular Lotaje</button>
+      <div class="lc-result lc-hidden" id="lcResult">
+        <div class="lc-rrow"><span>Distancia SL</span><span id="lcSlInfo"></span></div>
+        <div class="lc-rrow"><span>A arriesgar</span><span id="lcRiskAmt"></span></div>
+        <div class="lc-rrow"><span>Valor pto/lote</span><span id="lcPpv"></span></div>
+        <div class="lc-rrow"><span>Pérdida real</span><span id="lcLossLot"></span></div>
+        <div class="lc-rrow"><span>Vol min/step/max</span><span id="lcVolRange"></span></div>
+        <div class="lc-lots" id="lcLots">0.00</div>
+        <div class="lc-lots-label" id="lcLotLabel">lotes</div>
+        <div class="lc-warn lc-hidden" id="lcWarn"></div>
+      </div>
+    </div>
+    <div class="lc-card lc-panel" id="lc-panel-inst">
+      <p style="color:#6a7a8a;font-size:11px;margin:6px 0;"><strong id="lcCount" style="color:#c9a84c;">0</strong> instrumentos cargados.</p>
+      <label class="lc-label">Nombre</label>
+      <input type="text" class="lc-input" id="lcNewName" placeholder="Ej: LionX75">
+      <div class="lc-row" style="gap:6px">
+        <div>
+          <label class="lc-label">Valor pto/lote</label>
+          <input type="number" class="lc-input" id="lcNewPpv" step="0.0001" inputmode="decimal">
+        </div>
+        <div>
+          <label class="lc-label">Tamaño punto</label>
+          <input type="number" class="lc-input" id="lcNewPoint" step="0.00001" inputmode="decimal">
+        </div>
+      </div>
+      <div class="lc-row" style="gap:6px">
+        <div>
+          <label class="lc-label">Vol mín</label>
+          <input type="number" class="lc-input" id="lcNewVolMin" step="0.01" inputmode="decimal">
+        </div>
+        <div>
+          <label class="lc-label">Step</label>
+          <input type="number" class="lc-input" id="lcNewVolStep" step="0.01" inputmode="decimal">
+        </div>
+        <div>
+          <label class="lc-label">Vol máx</label>
+          <input type="number" class="lc-input" id="lcNewVolMax" step="0.01" inputmode="decimal">
+        </div>
+      </div>
+      <button class="lc-btn" onclick="lcAddInstrument()">Guardar</button>
+      <div style="margin-top:10px">
+        <button class="lc-btn-danger" style="width:100%;padding:8px;" onclick="lcResetDefaults()">Restaurar por defecto</button>
+      </div>
+      <div class="lc-list" id="lcList"></div>
+    </div>
+    <div class="lc-card lc-panel" id="lc-panel-help">
+      <details class="lc-help-block" open>
+        <summary>Modo "Por precio"</summary>
+        <p>Pones precio de entrada y precio de SL. Calcula los puntos automáticamente con el tamaño de punto del instrumento.</p>
+        <p><strong>LionX75:</strong> entrada 234.5678, SL 234.4678 → 1000 puntos.</p>
+      </details>
+      <details class="lc-help-block">
+        <summary>Modo "Por puntos"</summary>
+        <p>Si MT5 ya te muestra los puntos del SL, los metes directamente.</p>
+      </details>
+      <details class="lc-help-block">
+        <summary>Riesgos recomendados</summary>
+        <p><strong>Conservador:</strong> 0.5% — <strong>Estándar:</strong> 1% — <strong>Agresivo:</strong> 2% (no más)</p>
+      </details>
+      <details class="lc-help-block">
+        <summary>Actualizar instrumentos desde MT5</summary>
+        <p>Ejecuta <strong>ExportarSimbolos.mq5</strong> en tu MT5, comparte el CSV y se regenera la lista de instrumentos.</p>
+      </details>
+    </div>
+  </div>
+</section>
 <button class="bot-bubble" id="botBubble" onclick="toggleChat()" title="Trampa IA">
   <img src="avatar.png" alt="Trampa IA">
 </button>
@@ -762,14 +811,8 @@ textarea.detail-notes::placeholder{color:#3a4a5a;}
     <button class="btn-bot-send" id="botSendBtn" onclick="sendBotMsg()">➤</button>
   </div>
 </div>
-
-<!-- BOTTOM BAR oculto — era del checklist -->
 <div class="bottom-bar hidden" id="bottomBar" style="display:none!important;"></div>
-
 <script>
-// =============================================
-//  TF CATALOG — todas las temporalidades
-// =============================================
 const TF_CATALOG = {
   'Y'  :{ name:'ANUAL',      cls:'tf-y',   desc:'Ciclos de años · macro total · visión de décadas' },
   '6M' :{ name:'SEMESTRAL',  cls:'tf-6m',  desc:'Ciclos semestrales · tendencia macro' },
@@ -787,33 +830,24 @@ const TF_CATALOG = {
   'M5' :{ name:'M5',         cls:'tf-m5',  desc:'5 min · scalping' },
 };
 const TF_DEFAULT = ['MN','W1','D1','H4'];
-
 function getTfInfo(id) {
   return TF_CATALOG[id] || { name:id, cls:'tf-custom', desc:'Temporalidad personalizada' };
 }
-
 function getActiveTfs(pair) {
   if (!pairData[pair]) pairData[pair] = {};
   if (!pairData[pair]._tfs) pairData[pair]._tfs = [...TF_DEFAULT];
   return pairData[pair]._tfs;
 }
-
-// =============================================
-//  STATE
-// =============================================
 let pairs       = JSON.parse(localStorage.getItem('st_pairs') || '[]');
 let pairData    = JSON.parse(localStorage.getItem('st_data')  || '{}');
 let currentPair = pairs.length > 0 ? pairs[0] : null;
 let detailPair  = null;
 let detailTf    = null;
 let urlModalCallback = null;
-
 function saveState() {
   localStorage.setItem('st_pairs', JSON.stringify(pairs));
   localStorage.setItem('st_data',  JSON.stringify(pairData));
 }
-
-// Checklist fractal — mismos ítems en todos los TF
 const CL_ITEMS = [
   { group:'señal',   bull:'Señal alcista en {TF}',              bear:'Señal bajista en {TF}' },
   { group:'zonas',   bull:'Zonas {TF} marcadas — soporte',      bear:'Zonas {TF} marcadas — resistencia' },
@@ -832,7 +866,6 @@ const CL_GROUPS = {
   trampa2: null,
   trampa3: null,
 };
-
 function getPairTfData(pair, tf) {
   if (!pairData[pair])     pairData[pair] = {};
   if (!pairData[pair][tf]) pairData[pair][tf] = {
@@ -840,7 +873,6 @@ function getPairTfData(pair, tf) {
     checks:{ bull: new Array(CL_ITEMS.length).fill(false),
              bear: new Array(CL_ITEMS.length).fill(false) }
   };
-  // backwards compat: add checks if missing
   if (!pairData[pair][tf].checks) {
     pairData[pair][tf].checks = {
       bull: new Array(CL_ITEMS.length).fill(false),
@@ -849,10 +881,6 @@ function getPairTfData(pair, tf) {
   }
   return pairData[pair][tf];
 }
-
-// =============================================
-//  SECTION SWITCH
-// =============================================
 function switchSection(sec, tabEl) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
@@ -860,15 +888,10 @@ function switchSection(sec, tabEl) {
   tabEl.classList.add('active');
   window.scrollTo(0, 0);
 }
-
-// =============================================
-//  CHECKS HELPERS
-// =============================================
 function getChecksTotal(pair, tf) {
   const d = getPairTfData(pair, tf);
   return d.checks.bull.filter(Boolean).length + d.checks.bear.filter(Boolean).length;
 }
-
 function getChecksLabel(pair, tf) {
   const d = getPairTfData(pair, tf);
   const bull = d.checks.bull.filter(Boolean).length;
@@ -878,15 +901,10 @@ function getChecksLabel(pair, tf) {
   if (bull >= bear) return `▲ ${bull}/${n}`;
   return `▼ ${bear}/${n}`;
 }
-
-// =============================================
-//  RESUMEN CARD
-// =============================================
 function buildResumenCard(pair) {
   const tfs = getActiveTfs(pair);
   let bullTfs = 0, bearTfs = 0;
   let lines = '';
-
   tfs.forEach(tfId => {
     const d = getPairTfData(pair, tfId);
     const bull = d.checks.bull.filter(Boolean).length;
@@ -903,7 +921,6 @@ function buildResumenCard(pair) {
       <span class="resumen-status ${statusCls}">${statusTxt}</span>
     </div>`;
   });
-
   const total = tfs.length;
   let verdict = '', verdictCls = '';
   if (bullTfs === 0 && bearTfs === 0) {
@@ -919,7 +936,6 @@ function buildResumenCard(pair) {
     verdict = `⚡ MIXTO — ${bullTfs}▲ ${bearTfs}▼ · espera alineación`;
     verdictCls = 'verdict-neutral';
   }
-
   return `
   <div class="tf-card-resumen" onclick="openResumen('${pair}')">
     <div class="resumen-top">
@@ -935,24 +951,18 @@ function buildResumenCard(pair) {
     </div>
   </div>`;
 }
-
 function openResumen(pair) {
-  // Open detail on the first TF — user can navigate from there
   const tfs = getActiveTfs(pair);
   if (tfs.length > 0) openDetail(pair, tfs[0]);
 }
-
 function updateBadge(pair, tf, el) {
   const lbl = getChecksLabel(pair, tf);
   el.textContent = lbl;
   el.className = 'tf-progress-badge' + (lbl ? ' has-checks' : '');
 }
-
-// =============================================
-//  PAIRS BAR
-// =============================================
 function renderPairsBar() {
   const bar = document.getElementById('pairsBar');
+  if (!bar) return;
   bar.innerHTML = '';
   pairs.forEach(p => {
     const btn = document.createElement('button');
@@ -967,20 +977,15 @@ function renderPairsBar() {
   addBtn.onclick = openAddPair;
   bar.appendChild(addBtn);
 }
-
 function selectPair(p) {
   currentPair = p;
   renderPairsBar();
   renderPairContent();
   window.scrollTo(0, 0);
 }
-
-// =============================================
-//  PAIR CONTENT — 2x2 GRID
-// =============================================
 function renderPairContent() {
   const wrap = document.getElementById('pairContent');
-
+  if (!wrap) return;
   if (!currentPair) {
     wrap.innerHTML = `
       <div class="empty-state">
@@ -991,9 +996,7 @@ function renderPairContent() {
       </div>`;
     return;
   }
-
   const activeTfs = getActiveTfs(currentPair);
-
   let html = `<div class="pair-content-wrap">
     <div class="pair-header">
       <div class="pair-title">${currentPair} <small>BITÁCORA · HISTORY LINES</small></div>
@@ -1003,13 +1006,11 @@ function renderPairContent() {
       </div>
     </div>
     <div class="tf-grid">`;
-
   activeTfs.forEach(tfId => {
     const tf  = getTfInfo(tfId);
     const d   = getPairTfData(currentPair, tfId);
     const hasImg = !!d.img;
     const notesPreview = d.notes ? d.notes.substring(0, 80) + (d.notes.length > 80 ? '…' : '') : '';
-
     html += `
     <div class="tf-card-h${hasImg ? ' has-img' : ''}" onclick="openDetail('${currentPair}','${tfId}')">
       <div class="tf-card-h-top">
@@ -1031,17 +1032,10 @@ function renderPairContent() {
       <div class="tf-notes-preview ${notesPreview ? 'has-notes' : ''}">${notesPreview || '— sin notas —'}</div>
     </div>`;
   });
-
-  // Tarjeta RESUMEN
   html += buildResumenCard(currentPair);
-
   html += `</div></div>`;
   wrap.innerHTML = html;
 }
-
-// =============================================
-//  TF DETAIL — FULLSCREEN
-// =============================================
 function openDetail(pair, tf) {
   detailPair = pair;
   detailTf   = tf;
@@ -1049,19 +1043,14 @@ function openDetail(pair, tf) {
   document.getElementById('detailOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function refreshDetailContent() {
   const tfObj = getTfInfo(detailTf);
   const d     = getPairTfData(detailPair, detailTf);
   const hasImg = !!d.img;
-
-  // Header
   document.getElementById('detailBadge').className  = 'tf-badge ' + tfObj.cls;
   document.getElementById('detailBadge').textContent = detailTf;
   document.getElementById('detailPairLabel').textContent = detailPair;
   document.getElementById('detailTfLabel').textContent   = tfObj.name + ' · ' + tfObj.desc;
-
-  // TF switcher nav
   const nav = document.getElementById('detailTfNav');
   const activeTfsD = getActiveTfs(detailPair);
   nav.innerHTML = activeTfsD.map(id => {
@@ -1069,17 +1058,12 @@ function refreshDetailContent() {
     return `<button class="detail-tf-btn${id === detailTf ? ' active' : ''}"
       onclick="switchDetailTf('${id}')">${id} <span style="font-size:9px;opacity:0.6;">${t.name}</span></button>`;
   }).join('');
-
-  // Image
   const imgArea = document.getElementById('detailImgArea');
   const placeholder = document.getElementById('detailImgPlaceholder');
   const fileInput   = document.getElementById('detailFileInput');
   const clearBtn    = document.getElementById('detailClearBtn');
-
-  // Remove old img if any
   const oldImg = imgArea.querySelector('img');
   if (oldImg) oldImg.remove();
-
   if (hasImg) {
     imgArea.classList.add('has-img');
     placeholder.style.display = 'none';
@@ -1109,22 +1093,15 @@ function refreshDetailContent() {
     fileInput.style.display   = 'block';
     clearBtn.style.display    = 'none';
   }
-
-  // Notes
   document.getElementById('detailNotes').value = d.notes || '';
-
-  // Fractal checklist
   renderFractalChecklist(detailPair, detailTf);
 }
-
 function renderFractalChecklist(pair, tf) {
   const d = getPairTfData(pair, tf);
   const checks = d.checks;
   let lastGroup = null;
   let html = '';
-
   CL_ITEMS.forEach((item, i) => {
-    // Group label
     if (item.group !== lastGroup && CL_GROUPS[item.group] !== null) {
       html += `<div class="fcl-row"><div class="fcl-row-label">${i+1} ${CL_GROUPS[item.group]}</div></div>`;
       lastGroup = item.group;
@@ -1143,8 +1120,6 @@ function renderFractalChecklist(pair, tf) {
       </div>
     </div>`;
   });
-
-  // Execution block
   html += `
   <div class="fcl-row">
     <div class="fcl-exec">
@@ -1156,32 +1131,24 @@ function renderFractalChecklist(pair, tf) {
       </div>
     </div>
   </div>`;
-
   document.getElementById('detailChecklist').innerHTML = html;
 }
-
 function toggleCheck(pair, tf, side, idx) {
   const d = getPairTfData(pair, tf);
   d.checks[side][idx] = !d.checks[side][idx];
   saveState();
   renderFractalChecklist(pair, tf);
-  // Update thumb badge on grid (if visible)
   const badge = document.getElementById(`badge-${pair}-${tf}`);
   if (badge) updateBadge(pair, tf, badge);
 }
-
 function switchDetailTf(tf) {
-  // Save current notes before switching
   const notesVal = document.getElementById('detailNotes').value;
   getPairTfData(detailPair, detailTf).notes = notesVal;
   saveState();
-
   detailTf = tf;
   refreshDetailContent();
 }
-
 function closeDetail() {
-  // Save notes on close
   const notesVal = document.getElementById('detailNotes').value;
   if (detailPair && detailTf) {
     getPairTfData(detailPair, detailTf).notes = notesVal;
@@ -1189,12 +1156,8 @@ function closeDetail() {
   }
   document.getElementById('detailOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  renderPairContent(); // refresh grid thumbnails
+  renderPairContent();
 }
-
-// =============================================
-//  IMAGE HANDLING (detail)
-// =============================================
 function handleDetailFileUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -1209,7 +1172,6 @@ function handleDetailFileUpload(event) {
   };
   reader.readAsDataURL(file);
 }
-
 function openUrlModal() {
   const d = getPairTfData(detailPair, detailTf);
   document.getElementById('urlInput').value = (d.img && d.img.startsWith('http')) ? d.img : '';
@@ -1222,31 +1184,24 @@ function openUrlModal() {
   openModal('urlModal');
   setTimeout(() => document.getElementById('urlInput').focus(), 100);
 }
-
 function confirmUrl() {
   const raw = document.getElementById('urlInput').value.trim();
   if (raw && urlModalCallback) urlModalCallback(convertToImageUrl(raw));
   closeModal('urlModal');
 }
-
-// Convierte URLs de página a URLs de imagen directa
 function convertToImageUrl(url) {
   if (!url) return url;
-  // TradingView snapshot: https://www.tradingview.com/x/HASH/ → imagen directa S3
   const tvMatch = url.match(/tradingview\.com\/x\/([a-zA-Z0-9]+)\/?/);
   if (tvMatch) return `https://s3.tradingview.com/snapshots/x/${tvMatch[1]}.png`;
-  // TradingView chart share: https://www.tradingview.com/chart/SYMBOL/snapshot/HASH/
   const tvChart = url.match(/tradingview\.com\/chart\/[^/]+\/snapshot\/([a-zA-Z0-9]+)\/?/);
   if (tvChart) return `https://s3.tradingview.com/snapshots/${tvChart[1]}.png`;
   return url;
 }
-
 function clearDetailImg() {
   getPairTfData(detailPair, detailTf).img = '';
   saveState();
   refreshDetailContent();
 }
-
 function clearDetailTf() {
   if (!confirm(`¿Borrar imagen, notas y checks de ${detailPair} ${detailTf}?`)) return;
   const d = getPairTfData(detailPair, detailTf);
@@ -1257,10 +1212,6 @@ function clearDetailTf() {
   refreshDetailContent();
   renderPairContent();
 }
-
-// =============================================
-//  NOTES (detail)
-// =============================================
 let notesTimer = null;
 function saveDetailNotes(value) {
   clearTimeout(notesTimer);
@@ -1269,16 +1220,11 @@ function saveDetailNotes(value) {
     saveState();
   }, 600);
 }
-
-// =============================================
-//  PAIR MANAGEMENT
-// =============================================
 function openAddPair() {
   document.getElementById('addPairInput').value = '';
   openModal('addPairModal');
   setTimeout(() => document.getElementById('addPairInput').focus(), 100);
 }
-
 function confirmAddPair() {
   const name = document.getElementById('addPairInput').value.trim().toUpperCase();
   if (!name) return;
@@ -1292,21 +1238,14 @@ function confirmAddPair() {
   renderPairContent();
   closeModal('addPairModal');
 }
-
-// =============================================
-//  TF CONFIG
-// =============================================
 function openTfConfig(pair) {
   currentPair = pair;
   document.getElementById('tfConfigPairName').textContent = pair;
   renderTfConfigModal(pair);
   openModal('tfConfigModal');
 }
-
 function renderTfConfigModal(pair) {
   const active = getActiveTfs(pair);
-
-  // Active tags
   document.getElementById('tfActiveList').innerHTML = active.length
     ? active.map(id => {
         const t = getTfInfo(id);
@@ -1316,21 +1255,17 @@ function renderTfConfigModal(pair) {
         </span>`;
       }).join('')
     : `<span style="font-size:10px;color:#2a3a4a;">Sin timeframes — añade uno abajo</span>`;
-
-  // Catalog grid
   document.getElementById('tfCatalogGrid').innerHTML = Object.keys(TF_CATALOG).map(id => {
     const already = active.includes(id);
     return `<button class="tf-cat-btn${already ? ' already' : ''}" onclick="addTf('${pair}','${id}')">${id} · ${TF_CATALOG[id].name}</button>`;
   }).join('');
 }
-
 function addTf(pair, id) {
   const tfs = getActiveTfs(pair);
   if (!tfs.includes(id)) { tfs.push(id); saveState(); }
   renderTfConfigModal(pair);
   renderPairContent();
 }
-
 function removeTf(pair, id) {
   const tfs = getActiveTfs(pair);
   const idx = tfs.indexOf(id);
@@ -1338,14 +1273,12 @@ function removeTf(pair, id) {
   renderTfConfigModal(pair);
   renderPairContent();
 }
-
 function addCustomTf() {
   const val = document.getElementById('tfCustomInp').value.trim().toUpperCase();
   if (!val) return;
   addTf(currentPair, val);
   document.getElementById('tfCustomInp').value = '';
 }
-
 function deletePair(pair) {
   if (!confirm(`¿Eliminar ${pair} y todos sus datos?`)) return;
   pairs = pairs.filter(p => p !== pair);
@@ -1355,56 +1288,44 @@ function deletePair(pair) {
   renderPairsBar();
   renderPairContent();
 }
-
-// =============================================
-//  MODAL HELPERS
-// =============================================
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });
-
-// Close detail with Escape key
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if (document.getElementById('detailOverlay').classList.contains('open')) closeDetail();
   }
 });
-
-// =============================================
-//  CHECKLIST
-// =============================================
 const CL_TOTAL = 8;
 function toggle(el) { el.classList.toggle('tapped'); updateProgress(); }
 function updateProgress() {
   const checked = document.querySelectorAll('#sec-checklist .cell.tapped').length;
-  document.getElementById('progressFill').style.width = Math.round((checked/CL_TOTAL)*100) + '%';
-  document.getElementById('countText').textContent = checked + '/' + CL_TOTAL;
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = Math.round((checked/CL_TOTAL)*100) + '%';
+  const ct = document.getElementById('countText');
+  if (ct) ct.textContent = checked + '/' + CL_TOTAL;
   const pill = document.getElementById('statusPill');
-  if (checked === CL_TOTAL) { pill.className='status-pill status-go'; pill.textContent='✓ Ejecutar'; }
-  else if (checked >= 4)    { pill.className='status-pill status-warn'; pill.textContent='Validando...'; }
-  else                      { pill.className='status-pill status-pending'; pill.textContent='En proceso'; }
+  if (pill) {
+    if (checked === CL_TOTAL) { pill.className='status-pill status-go'; pill.textContent='✓ Ejecutar'; }
+    else if (checked >= 4)    { pill.className='status-pill status-warn'; pill.textContent='Validando...'; }
+    else                      { pill.className='status-pill status-pending'; pill.textContent='En proceso'; }
+  }
 }
 function resetAll() {
   document.querySelectorAll('#sec-checklist .cell.tapped').forEach(el => el.classList.remove('tapped'));
   updateProgress();
 }
-
-// =============================================
-//  CHATBOT — Trampa IA
-// =============================================
 const BOT_KEY_STORE = 'trampa_api_key';
 let chatOpen     = false;
 let chatHistory  = [];
 let botThinking  = false;
-
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('botPanel').classList.toggle('open', chatOpen);
   if (chatOpen) setTimeout(() => document.getElementById('botInput').focus(), 300);
 }
-
 function buildBotContext() {
   let ctx = 'BITÁCORA SISTEMA TRAMPA — Estado actual:\n\n';
   if (!pairs.length) return ctx + '(Sin pares cargados aún)\n';
@@ -1428,32 +1349,26 @@ function buildBotContext() {
   }
   return ctx;
 }
-
 async function sendBotMsg() {
   if (botThinking) return;
   const input  = document.getElementById('botInput');
   const sendBtn = document.getElementById('botSendBtn');
   const msg    = input.value.trim();
   if (!msg) return;
-
   input.value = '';
   removeBotEmpty();
   appendBotMsg('user', msg);
-
   botThinking = true;
   sendBtn.disabled = true;
   document.getElementById('botBubble').classList.add('thinking');
   const typingEl = appendBotMsg('ai', '...', true);
-
   const systemPrompt =
 `Eres un asistente de trading experto en el Sistema Trampa (método de análisis fractal multi-temporalidad).
 El trader usa este sistema para analizar pares de divisas y detectar trampas de liquidez.
 Responde en español, de forma concisa y directa. Usa los datos para dar respuestas específicas.
 Cuando analices un par, considera la confluencia de temporalidades: las altas mandan sobre las bajas.
 El checklist fractal tiene 7 ítems: señal, zonas, sesgo, posición, trampa1, trampa2, trampa3.
-
 ${buildBotContext()}`;
-
   try {
     const res = await fetch('https://trampa-api.lams1801.workers.dev', {
       method: 'POST',
@@ -1468,7 +1383,6 @@ ${buildBotContext()}`;
         ]
       })
     });
-
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       typingEl.textContent = `⚠ Error ${res.status}: ${err.error?.message || 'Revisa tu API key (⚙)'}`;
@@ -1486,14 +1400,12 @@ ${buildBotContext()}`;
     typingEl.textContent = `⚠ Sin conexión: ${e.message}`;
     typingEl.classList.remove('typing');
   }
-
   botThinking = false;
   sendBtn.disabled = false;
   document.getElementById('botBubble').classList.remove('thinking');
   scrollBotMessages();
   input.focus();
 }
-
 function appendBotMsg(role, text, isTyping) {
   const msgs = document.getElementById('botMessages');
   const div  = document.createElement('div');
@@ -1503,17 +1415,14 @@ function appendBotMsg(role, text, isTyping) {
   scrollBotMessages();
   return div;
 }
-
 function scrollBotMessages() {
   const el = document.getElementById('botMessages');
   el.scrollTop = el.scrollHeight;
 }
-
 function removeBotEmpty() {
   const el = document.querySelector('#botMessages .bot-empty');
   if (el) el.remove();
 }
-
 function showApiKeyPrompt() {
   const key = prompt(
     '✦ TRAMPA IA\n\nPega tu API key de Anthropic.\nSe guarda solo en este navegador, nunca en el código.\n\n(obtenla en console.anthropic.com → API Keys)'
@@ -1524,7 +1433,6 @@ function showApiKeyPrompt() {
     alert('Clave no válida. Debe empezar por sk-');
   }
 }
-
 function openApiKeyPrompt() {
   const current = localStorage.getItem(BOT_KEY_STORE) || '';
   const masked  = current ? current.slice(0,10) + '••••••••••' + current.slice(-4) : '(no configurada)';
@@ -1534,13 +1442,8 @@ function openApiKeyPrompt() {
   if (key.startsWith('sk-')) { localStorage.setItem(BOT_KEY_STORE, key.trim()); alert('✓ API key guardada'); }
   else alert('Clave no válida. Debe empezar por sk-');
 }
-
-// =============================================
-//  MICRÓFONO — Web Speech API
-// =============================================
 let micActive = false;
 let recognition = null;
-
 function toggleMic() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     alert('Tu navegador no soporta el micrófono. Usa Chrome o Edge.');
@@ -1555,46 +1458,34 @@ function toggleMic() {
   recognition.lang = 'es-ES';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
-
   recognition.onstart = () => {
     micActive = true;
     document.getElementById('botMicBtn').classList.add('active');
     document.getElementById('botBubble').classList.add('listening');
     document.getElementById('botInput').placeholder = '🎤 Escuchando...';
   };
-
   recognition.onresult = (e) => {
     const transcript = e.results[0][0].transcript;
     document.getElementById('botInput').value = transcript;
   };
-
   recognition.onend = () => {
     micActive = false;
     document.getElementById('botMicBtn').classList.remove('active');
     document.getElementById('botBubble').classList.remove('listening');
     document.getElementById('botInput').placeholder = 'Pregunta sobre tus pares...';
-    // Auto-send if got something
     if (document.getElementById('botInput').value.trim()) sendBotMsg();
   };
-
   recognition.onerror = (e) => {
     micActive = false;
     document.getElementById('botMicBtn').classList.remove('active');
     document.getElementById('botBubble').classList.remove('listening');
     document.getElementById('botInput').placeholder = 'Pregunta sobre tus pares...';
   };
-
   recognition.start();
 }
-
-// =============================================
-//  BITÁCORA AUTO-FEED
-// =============================================
 const WORKER = 'https://trampa-api.lams1801.workers.dev';
-
 let allBitaEntries   = [];
 let activeBitaSymbol = 'ALL';
-
 async function loadBitacora() {
   const feed = document.getElementById('bitaFeed');
   if (!feed) return;
@@ -1609,7 +1500,6 @@ async function loadBitacora() {
     feed.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">⚠️</div><div class="senales-empty-title">Error al conectar</div><div class="senales-empty-sub">Comprueba que el worker está activo</div><button class="btn-reload" onclick="loadBitacora()">↻ Reintentar</button></div>';
   }
 }
-
 function buildBitaFilters() {
   const bar = document.getElementById('bitaFilterBar');
   if (!bar) return;
@@ -1620,45 +1510,37 @@ function buildBitaFilters() {
   });
   bar.innerHTML = html;
 }
-
 function filterBitacora(symbol, btn) {
   activeBitaSymbol = symbol;
   document.querySelectorAll('#bitaFilterBar .sfilter').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderBitacora();
 }
-
 function renderBitacora() {
   const feed = document.getElementById('bitaFeed');
   if (!feed) return;
   const entries = activeBitaSymbol === 'ALL'
     ? allBitaEntries
     : allBitaEntries.filter(e => e.symbol === activeBitaSymbol);
-
   if (!entries.length) {
     feed.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">📸</div><div class="senales-empty-title">Sin entradas</div><div class="senales-empty-sub">Cuando el EA detecte una trampa enviará el gráfico aquí automáticamente</div></div>';
     return;
   }
   feed.innerHTML = entries.map(e => renderBitaCard(e)).join('');
-  // Cargar imágenes de forma lazy
   entries.forEach(e => { if (e.hasImage) loadBitaImage(e.id); });
 }
-
 function renderBitaCard(e) {
-  const tfMap = {Y:'tf-y',MN:'tf-mn',W1:'tf-w1',D1:'tf-d1',H12:'tf-h12',H8:'tf-h8',H4:'tf-h4',H2:'tf-h2',H1:'tf-h1',M30:'tf-m30',M15:'tf-m15',M5:'tf-m5',M15:'tf-m15',M5:'tf-m5'};
+  const tfMap = {Y:'tf-y',MN:'tf-mn',W1:'tf-w1',D1:'tf-d1',H12:'tf-h12',H8:'tf-h8',H4:'tf-h4',H2:'tf-h2',H1:'tf-h1',M30:'tf-m30',M15:'tf-m15',M5:'tf-m5'};
   const tfClass = tfMap[(e.tf||'').toUpperCase()] || 'tf-custom';
   const cap  = e.caption || '';
   const isBull = /alcista/i.test(cap);
   const isBear = /bajista/i.test(cap);
   const dirClass = isBull ? 'bull' : (isBear ? 'bear' : '');
   const dirEmoji = isBull ? '🟢' : (isBear ? '🔴' : '⚪');
-
   const ts = e.timestamp ? new Date(e.timestamp.replace(' ','T')).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
-
   const imgSection = e.hasImage
     ? `<div class="bita-img-wrap" id="imgwrap_${e.id}"><div class="bita-img-loading">Cargando imagen...</div></div>`
     : '';
-
   return `
 <div class="bita-card ${dirClass}">
   <div class="bita-card-header">
@@ -1676,7 +1558,6 @@ function renderBitaCard(e) {
   ${cap ? `<div class="bita-caption">${cap}</div>` : ''}
 </div>`;
 }
-
 async function deleteBitaEntry(id) {
   try {
     await fetch(WORKER + '/bitacora/' + id, { method: 'DELETE' });
@@ -1684,7 +1565,6 @@ async function deleteBitaEntry(id) {
   allBitaEntries = allBitaEntries.filter(e => e.id !== id);
   renderBitacora();
 }
-
 async function loadBitaImage(id) {
   const wrap = document.getElementById('imgwrap_' + id);
   if (!wrap) return;
@@ -1698,14 +1578,9 @@ async function loadBitaImage(id) {
     wrap.innerHTML = '';
   }
 }
-
-// =============================================
-//  SEÑALES EA
-// =============================================
 let allSignals   = [];
 let activeFilter = 'all';
 let signalRefreshTimer = null;
-
 async function loadSignals() {
   const list = document.getElementById('senalesList');
   if (!list) return;
@@ -1719,12 +1594,10 @@ async function loadSignals() {
     list.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">⚠️</div><div class="senales-empty-title">Error al conectar</div><div class="senales-empty-sub">Comprueba que el worker está activo</div><button class="btn-reload" onclick="loadSignals()">↻ Reintentar</button></div>';
   }
 }
-
 function deleteSignal(id) {
   allSignals = allSignals.filter(s => s.id !== id);
   renderSignals();
 }
-
 function renderSignals() {
   const list = document.getElementById('senalesList');
   if (!list) return;
@@ -1733,14 +1606,12 @@ function renderSignals() {
   else if (activeFilter === 'ZR') signals = signals.filter(s => s.tipo === 'ZR');
   else if (activeFilter === 'alcista') signals = signals.filter(s => s.dir === 1);
   else if (activeFilter === 'bajista') signals = signals.filter(s => s.dir === -1);
-
   if (!signals.length) {
     list.innerHTML = '<div class="senales-empty"><div class="senales-empty-icon">📡</div><div class="senales-empty-title">Sin señales</div><div class="senales-empty-sub">No hay señales para este filtro</div><button class="btn-reload" onclick="loadSignals()">↻ Actualizar</button></div>';
     return;
   }
   list.innerHTML = signals.map(s => renderSignalCard(s)).join('');
 }
-
 function renderSignalCard(s) {
   const isBull   = s.dir === 1;
   const dirEmoji = isBull ? '🟢' : '🔴';
@@ -1748,11 +1619,8 @@ function renderSignalCard(s) {
   const zonaLabel = s.tipoZona === 'ZS' ? 'Soporte' : 'Resistencia';
   const zonaClass = s.tipoZona === 'ZS' ? 'zs' : 'zr';
   const fechaStr  = s.receivedAt ? new Date(s.receivedAt).toLocaleString('es-ES', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
-
-  // Tf badge class
   const tfMap = {Y:'tf-y',MN:'tf-mn',W1:'tf-w1',D1:'tf-d1',H12:'tf-h12',H8:'tf-h8',H4:'tf-h4',H2:'tf-h2',H1:'tf-h1',M30:'tf-m30',M15:'tf-m15',M5:'tf-m5'};
   const tfClass = tfMap[(s.tf||'').toUpperCase()] || 'tf-custom';
-
   return `
 <div class="signal-card ${dirClass}">
   <div class="signal-card-top">
@@ -1776,17 +1644,13 @@ function renderSignalCard(s) {
   </div>
 </div>`;
 }
-
 function filterSignals(filter, btn) {
   activeFilter = filter;
   document.querySelectorAll('.sfilter').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderSignals();
 }
-
-// ── Notificaciones push ───────────────────────────────────────────
-const VAPID_PUBLIC = 'BKl5VJ4ybmGW_pJqwMnMigijxWPHQ_woDMqCuZbtZQH6kiUi4_JogC8FYZ330JGi0wbbpJZd3pVYngh3hpN93E4'; // ← reemplaza con tu clave pública VAPID real
-
+const VAPID_PUBLIC = 'BKl5VJ4ybmGW_pJqwMnMigijxWPHQ_woDMqCuZbtZQH6kiUi4_JogC8FYZ330JGi0wbbpJZd3pVYngh3hpN93E4';
 async function toggleNotif() {
   const btn = document.getElementById('btnNotif');
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
@@ -1795,7 +1659,6 @@ async function toggleNotif() {
   }
   const perm = await Notification.requestPermission();
   if (perm !== 'granted') { alert('Permiso de notificación denegado.'); return; }
-
   btn.textContent = '⏳ Registrando...';
   try {
     const reg = await navigator.serviceWorker.register('./sw.js');
@@ -1820,18 +1683,171 @@ async function toggleNotif() {
     alert('Error al activar notificaciones: ' + e.message);
   }
 }
-
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64  = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
   const raw     = atob(base64);
   return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
 }
-
-// =============================================
-//  INIT
-// =============================================
 loadBitacora();
+// =============================================
+//  CALCULADORA DE LOTAJE
+// =============================================
+const LC_STORAGE_KEY = 'lotcalc_trampa_v1';
+const LC_DEFAULTS = [
+  { name:'EURUSD!',       group:'Forex',     ppv:1.0,     point:0.00001, volMin:0.01, volStep:0.01, volMax:200 },
+  { name:'GBPUSD!',       group:'Forex',     ppv:1.0,     point:0.00001, volMin:0.01, volStep:0.01, volMax:200 },
+  { name:'NZDUSD!',       group:'Forex',     ppv:1.0,     point:0.00001, volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'USDJPY!',       group:'Forex',     ppv:0.6382,  point:0.001,   volMin:0.01, volStep:0.01, volMax:200 },
+  { name:'XAUUSD! (Oro)', group:'Metales',   ppv:1.0,     point:0.01,    volMin:0.01, volStep:0.01, volMax:5 },
+  { name:'US500!',        group:'Indices',   ppv:0.01,    point:0.01,    volMin:0.1,  volStep:0.1,  volMax:5 },
+  { name:'US30!',         group:'Indices',   ppv:0.01,    point:0.01,    volMin:0.1,  volStep:0.1,  volMax:5 },
+  { name:'USTEC!',        group:'Indices',   ppv:0.01,    point:0.01,    volMin:0.1,  volStep:0.1,  volMax:1 },
+  { name:'BTCUSD.!',      group:'Cripto',    ppv:0.01,    point:0.01,    volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX25',       group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX40',       group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX50',       group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX60',       group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX75',       group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX90',       group:'LionX',     ppv:0.00015, point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX100',      group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX120',      group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX150',      group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'LionX200',      group:'LionX',     ppv:0.0001,  point:0.0001,  volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'Fortune100.',   group:'Fortune',   ppv:0.1,     point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'Fortune250.',   group:'Fortune',   ppv:0.1,     point:0.01,    volMin:0.01, volStep:0.01, volMax:5 },
+  { name:'Fortune1000.',  group:'Fortune',   ppv:1.0,     point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'FortuneX200.',  group:'Fortune',   ppv:0.1,     point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'FortuneX500.',  group:'Fortune',   ppv:0.1,     point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'EmasVol10',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol20',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol30',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol40',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol50',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol60',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol70',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol80',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol90',     group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'EmasVol100',    group:'EmasVol',   ppv:0.01,    point:0.001,   volMin:0.01, volStep:0.01, volMax:100 },
+  { name:'VorteX20.',     group:'VorteX',    ppv:0.005,   point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'VorteX40.',     group:'VorteX',    ppv:0.005,   point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'VorteX60.',     group:'VorteX',    ppv:0.005,   point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'VorteX80.',     group:'VorteX',    ppv:0.005,   point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'VorteX100.',    group:'VorteX',    ppv:0.005,   point:0.01,    volMin:0.01, volStep:0.01, volMax:10 },
+  { name:'B 300 Idx.',    group:'Boom',      ppv:0.001,   point:0.001,   volMin:1.0,  volStep:0.01, volMax:20 }
+];
+let lcMode = 'price';
+let lcInstruments = (function(){
+  try { const d = localStorage.getItem(LC_STORAGE_KEY); if (d) { const p = JSON.parse(d); if (Array.isArray(p)&&p.length) return p; } } catch(e) {}
+  return LC_DEFAULTS.slice();
+})();
+function lcSave(){ try{ localStorage.setItem(LC_STORAGE_KEY, JSON.stringify(lcInstruments)); }catch(e){} }
+function lcEsc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function lcRefreshSelect(){
+  const sel = document.getElementById('lcInst'); if (!sel) return;
+  sel.innerHTML = '';
+  const groups = {};
+  lcInstruments.forEach((it,i)=>{ const g=it.group||'Otros'; (groups[g]=groups[g]||[]).push({...it,_idx:i}); });
+  Object.keys(groups).forEach(g=>{
+    const og = document.createElement('optgroup'); og.label = g;
+    groups[g].forEach(it=>{
+      const o = document.createElement('option'); o.value = it._idx; o.textContent = it.name+' ('+it.ppv+')'; og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  lcOnInstChange();
+}
+function lcOnInstChange(){
+  const sel = document.getElementById('lcInst'); if (!sel) return;
+  const it = lcInstruments[parseInt(sel.value)]; if (!it) return;
+  document.getElementById('lcPricebox').innerHTML =
+    '<strong>'+lcEsc(it.name)+'</strong> · 1 punto = '+it.point+' · '+it.ppv+' USD/pto/lote · vol '+it.volMin+'–'+it.volMax;
+}
+function lcRefreshList(){
+  const list = document.getElementById('lcList'); if (!list) return;
+  document.getElementById('lcCount').textContent = lcInstruments.length;
+  list.innerHTML = '';
+  lcInstruments.forEach((it,i)=>{
+    const div = document.createElement('div');
+    div.className = 'lc-item';
+    div.innerHTML = '<div class="lc-item-info"><div class="lc-item-name">'+lcEsc(it.name)+'</div><div class="lc-item-val">['+lcEsc(it.group||'')+'] ppv '+it.ppv+' · pto '+it.point+'</div></div>'
+                  + '<button class="lc-btn-danger" onclick="lcDel('+i+')">×</button>';
+    list.appendChild(div);
+  });
+}
+function lcAddInstrument(){
+  const name = document.getElementById('lcNewName').value.trim();
+  const ppv = parseFloat(document.getElementById('lcNewPpv').value);
+  const point = parseFloat(document.getElementById('lcNewPoint').value);
+  const volMin = parseFloat(document.getElementById('lcNewVolMin').value)||0.01;
+  const volStep= parseFloat(document.getElementById('lcNewVolStep').value)||0.01;
+  const volMax = parseFloat(document.getElementById('lcNewVolMax').value)||100;
+  if (!name||!ppv||ppv<=0||!point||point<=0){ alert('Pon nombre, valor por punto y tamaño de punto.'); return; }
+  const idx = lcInstruments.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());
+  const obj = { name, group:'Personalizado', ppv, point, volMin, volStep, volMax };
+  if (idx>=0) lcInstruments[idx]=obj; else lcInstruments.unshift(obj);
+  lcSave();
+  ['lcNewName','lcNewPpv','lcNewPoint','lcNewVolMin','lcNewVolStep','lcNewVolMax'].forEach(id=>document.getElementById(id).value='');
+  lcRefreshSelect(); lcRefreshList();
+}
+function lcDel(i){ if(!confirm('¿Borrar "'+lcInstruments[i].name+'"?')) return; lcInstruments.splice(i,1); lcSave(); lcRefreshSelect(); lcRefreshList(); }
+function lcResetDefaults(){ if(!confirm('¿Restaurar todos los instrumentos a los originales?')) return; lcInstruments=LC_DEFAULTS.slice(); lcSave(); lcRefreshSelect(); lcRefreshList(); }
+function lcSwitchTab(t,btn){
+  document.querySelectorAll('.lc-subtab').forEach(b=>b.classList.remove('lc-active'));
+  document.querySelectorAll('.lc-panel').forEach(p=>p.classList.remove('lc-active'));
+  btn.classList.add('lc-active');
+  document.getElementById('lc-panel-'+t).classList.add('lc-active');
+}
+function lcSetMode(m){
+  lcMode = m;
+  document.querySelectorAll('.lc-mode-btn').forEach(b=>b.classList.toggle('lc-active', b.dataset.mode===m));
+  document.getElementById('lcModePrice').style.display  = (m==='price')  ? 'block' : 'none';
+  document.getElementById('lcModePoints').style.display = (m==='points') ? 'block' : 'none';
+}
+function lcCalc(){
+  const balance = parseFloat(document.getElementById('lcBalance').value);
+  const risk    = parseFloat(document.getElementById('lcRisk').value);
+  const idx     = parseInt(document.getElementById('lcInst').value);
+  const ccy     = document.getElementById('lcCcy').value;
+  const inst    = lcInstruments[idx];
+  if (!balance||!risk||!inst){ alert('Revisa los datos.'); return; }
+  let slPoints, slDistanceText;
+  if (lcMode==='price') {
+    const entry = parseFloat(document.getElementById('lcEntryPrice').value);
+    const slP   = parseFloat(document.getElementById('lcSlPrice').value);
+    if (!entry||!slP){ alert('Pon precio de entrada y precio del SL.'); return; }
+    const dist = Math.abs(entry-slP);
+    slPoints = dist/inst.point;
+    slDistanceText = dist.toFixed(5).replace(/\.?0+$/,'')+' ('+Math.round(slPoints)+' pts)';
+  } else {
+    slPoints = parseFloat(document.getElementById('lcSl').value);
+    if (!slPoints){ alert('Pon el SL en puntos.'); return; }
+    slDistanceText = slPoints+' puntos';
+  }
+  const riskAmount = balance*(risk/100);
+  const lossPerLot = slPoints*inst.ppv;
+  let lots = lossPerLot>0 ? riskAmount/lossPerLot : 0;
+  const volStep = inst.volStep||0.01, volMin=inst.volMin||0.01, volMax=inst.volMax||100;
+  let warning = ''; const rawLots = lots;
+  lots = Math.floor(lots/volStep)*volStep;
+  lots = Math.round(lots*100000)/100000;
+  if (lots<volMin){ warning = 'Lotaje calculado ('+rawLots.toFixed(4)+') menor que el mínimo ('+volMin+'). Si entras con '+volMin+' arriesgas más del '+risk+'%.'; lots=volMin; }
+  if (lots>volMax){ warning = 'Lotaje calculado ('+rawLots.toFixed(2)+') mayor que el máximo ('+volMax+'). Limitado a '+volMax+'.'; lots=volMax; }
+  const realLoss = lots*lossPerLot;
+  document.getElementById('lcSlInfo').textContent = slDistanceText;
+  document.getElementById('lcRiskAmt').textContent = riskAmount.toFixed(2)+' '+ccy;
+  document.getElementById('lcPpv').textContent = inst.ppv+' '+ccy;
+  document.getElementById('lcLossLot').textContent = realLoss.toFixed(2)+' '+ccy;
+  document.getElementById('lcVolRange').textContent = volMin+' / '+volStep+' / '+volMax;
+  let label = lots<0.1?'micro lotes':(lots<1?'mini lotes':'lotes estándar');
+  document.getElementById('lcLots').textContent = lots.toFixed(2);
+  document.getElementById('lcLotLabel').textContent = label;
+  const w = document.getElementById('lcWarn');
+  if (warning){ w.textContent='⚠ '+warning; w.classList.remove('lc-hidden'); } else { w.classList.add('lc-hidden'); }
+  document.getElementById('lcResult').classList.remove('lc-hidden');
+}
+lcRefreshSelect();
+lcRefreshList();
 </script>
 </body>
 </html>
